@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<title>Wherever you go, there you are</title>
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+<meta charset="utf-8">
+<script src="https://maps.google.com/maps/api/js?sensor=false"></script>
+	<!--增加Google Mpas JavaScript API的位置 
+			sensor是查询参数(如果没有它，这个API将无法工作)。sensor=true，因为代码中要用到位置。若是只用地图而不需要位置，可以输入sensor=false。
+	-->
+<script src="myLoc.js"></script>
+<link rel="stylesheet" href="myLoc.css">
+</head>
+<body>
+
+<form>
+<input type="button" id="watch" value="Watch me">
+<input type="button" id="clearWatch" value="Clear watch">
+</form>
+
+<div id="location">
+Your location will go here.
+</div>
+
+<div id="distance">
+Distance from WickedlySmart HQ will go here.
+</div>
+
+<div id="map">
+</div>
+
+</body>
+</html>
+
+

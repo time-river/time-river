@@ -1,0 +1,30 @@
+<!--exercise-->
+<!doctype html>
+<html lang="en">
+<html>
+	<head>
+		<title>My Playlist</title>
+		<meta charset="utf-8">
+		<script>
+		function addSongs() {
+		var song1 = document.getElementById("song1");
+		var song2 = document.getElementById("song2");
+		var song3 = document.getElementById("song3");
+		
+		song1.innerHTML = "Blue Suede String, by Elvis Pagely";
+		song2.innerHTML = "Great Object on Fire, by Jerry JSON Lewis";
+		song3.innerHTML = "I Code the Line, by Johnny JavaScript";
+		}
+		
+		window.onload = addSongs;
+		</script>
+	</head>
+	<body>
+		<h1>My awesome playlist</h1>
+		<ul id="playlist">
+			<li id="song1"></li>
+			<li id="song2"></li>
+			<li id="song3"></li>
+		</ul>
+	</body>
+</html>

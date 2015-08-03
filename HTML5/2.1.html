@@ -1,0 +1,29 @@
+<!--
+document.getElementById() 返回对应的元素
+.innerHTML 使用元素的innerHTML属性改变元素的内容
+window.onload 页面完全加载时要执行init中的代码
+-->
+<!doctype html>
+<html lang="en">
+<!--<html> 无-->
+    <head>
+        <title>Planets</title>
+        <meta charset="utf-8">
+        <script>
+function init() {
+    var planet = document.getElementById("greenplanet");
+    planet.innerHTML = "Red Alert: hit by  phaser fire!";
+}
+
+window.onload = init;
+        </script>
+    </head>
+    <body>
+        <h1>Green Planet</h1>
+        <p id="greenplanet">All is well.</p>
+        <h1>Red Planet</h1>
+        <p id="redplanet">Noting to report</p>
+        <h1>Blue Planet</h1>
+        <p id="blueplanet">All systems A-OK</p>
+    </body>
+</html>

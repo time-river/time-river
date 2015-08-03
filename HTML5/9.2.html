@@ -1,0 +1,238 @@
+<!--
+本地存储 API
+    clear 清除localStorage中的所有数据项，只能清除自己的源
+    key 索引，localStorage中这个索引相对应的键
+    setItem 拿到键和值，把它们写入localStorage。如果localStorage中已经有对应这个键的一个数据项，会覆盖它
+    removeItem 删除一个数据项
+    length 查看localStorage中有多少数据项
+    getItem 按键值找数据项
+    localStorage 用它长期存储数据
+    sessionStorage 短期存储数据。打开浏览器就会存储内容，关闭浏览器清空内容。API与localStorage相同
+    QUOTA_EXCEEDED_ERR 超过5MB的限制，出现此异常(并非每个浏览器都抛出此)
+        try {
+            localStorage.setItem(myKey, myValue);
+        } catch(e) {
+            if (e == QUOTA_EXCEEDED_ERR) {
+                alert("Out of storage!");
+            }
+        }
+-->
+<!doctype html>
+<html>
+<head>
+    <title>Note to Self</title>
+    <meta charset="utf-8">
+    <style media="screen">
+        body {
+            background-color : #dbdbdb;
+            font-size : 100%;
+        }
+
+        form input#note_text {
+            width : 350px;
+        }
+
+        /* tickies li */
+        ul#stickies li {
+            display : block;
+            list-style : none;
+            z-index : 1;
+            float : left;
+            margin : 30px;
+            padding : 15px 15px 50px 15px; /*上 右 下 左*/
+            width : 200px;
+            height : 200px;
+            border : 1px solid #bfbfbf;
+            background-color : LightGoldenRodYellow;// use #fafad2 if name doesn't work
+            color : black;
+            text-decoration : none;
+            -webkit-box-shadow : 2px 2px 4px rgba(0, 0, 0, 0.4);
+            -moz-box-shadow : 2px 2px 4px rgba(0, 0, 0, 0.4);
+            -o-box-shadow : 2px 2px 4px rgba(0, 0, 0, 0.4);
+            box-shadow : 2px 2px 4px rgba(0, 0, 0, 0.4);
+            -webkit-transition : all 0.5s ease-in;
+            -moz-transition : all 0.5s ease-in;
+            -ms-transition : all 0.5s ease-in;
+            transition : all 0.5s ease-in;
+            overflow : hidden;
+        }
+
+        ul#stickies li span.sticky {
+            font-family : Verdana, Helvetica, sans-serif;
+            font-size : 200%;
+        }
+
+        /* rotation */
+        ul#stickies li:nth-child(even) {
+            -webkit-transform : rotate(2deg);
+            -moz-transform : rotate(2deg);
+            -o-transform : rotate(2deg);
+            -ms-transform : rotate(2deg);
+            transform : rotate(2deg);
+        }
+
+        ul#stickies li:nth-child(odd) {
+            -webkit-transform : rotate(-1deg);
+            -moz-transform : rotate(-1deg);
+            -o-transform : rotate(-1deg);
+            -ms-transform : rotate(-1deg);
+            transform : rotate(-1deg);
+        }
+
+        ul#stickies li:nth-child(3n) {
+            -webkit-transform : rotate(1deg);
+            -moz-transform : rotate(1deg);
+            -o-transform : rotate(1deg);
+            -ms-transform : rotate(1deg);
+            transform : rotate(1deg);
+        }
+
+        /*
+            Transform demo
+            Uses the transition (defined above) to ease in.
+        */
+        ul#stickies li:hover {
+            -webkit-box-shadow : 5px 5px 6px rgba(0, 0, 0, 0.4);
+            -moz-box-shadow : 5px 5px 6px rgba(0, 0, 0, 0.4);
+            -o-box-shadow : 5px 5px 6px rgba(0, 0, 0, 0.4);
+            box-shadow : 5px 5px 6px rgba(0, 0, 0, 0.4);
+            -webkit-transform : rotate(0deg) scale(1.25);
+            -moz-transform : rotate(0deg) scale(1.25);
+            -o-transform : rotate(0deg) scale(1.25);
+            -ms-transform : rotate(0deg) scale(1.25);
+            transform : rotate(0deg) scale(1.25);
+            z-index : 10;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = init;
+
+        function init() {
+            if (!window["localStorage"]) {
+                alert("Don't support localStorage!");
+                return;
+            }
+            var button = document.getElementById("add_button");
+            button.onclick = createSticky;
+
+            var clearButton = document.getElementById("clear_button");
+            clearButton.onclick = clearStorage;
+
+            /* version 1
+            for (var i = 0; i < localStorage.length; i++) {     如果根据localStorage中数据项的个数来命名，会存在问题，并不能确定存在相应的数据
+                var key = localStorage.key(i);
+                if (key.substring(0, 6) == "sticky")  {
+                    var value = localStorage.getItem(key);
+                    addStickyToDOM(value);
+                }
+            }
+            */
+            var stickiesArray = getStickiesArray();
+
+            for (var i = 0; i < stickiesArray.length; i++) {
+        		var key = stickiesArray[i];
+        		var value = JSON.parse(localStorage[key]);
+        		addStickyToDOM(key, value);
+        	}
+        }
+
+        function clearStorage () {
+            localStorage.clear();
+        }
+
+        function getStickiesArray() {
+            var stickiesArray = localStorage.getItem("stickiesArray");
+            if (!stickiesArray) {
+                stickiesArray = [];
+                localStorage.setItem("stickiesArray", JSON.stringify(stickiesArray));
+            } else {
+                stickiesArray = JSON.parse(stickiesArray);
+            }
+            return stickiesArray; //返回一个数组
+        }
+        function createSticky() {
+        /* version 1
+            var key = "sticky_" + localStorage.length;
+            localStorage.setItem(key, value);
+        */
+            var stickiesArray = getStickiesArray();
+            var currentDate = new Date();
+
+            var colorSelectObj = document.getElementById("note_color");
+            var index = colorSelectObj.selectedIndex;
+            var color = colorSelectObj[index].value;
+
+            var key = "sticky_" + currentDate.getTime();
+            var value = document.getElementById("note_text").value;
+
+            var stickyObj = {
+                "value": value,
+                "color": color
+            }
+
+            localStorage.setItem(key, JSON.stringify(stickyObj));
+            stickiesArray.push(key);
+            localStorage.setItem("stickiesArray", JSON.stringify(stickiesArray));
+            addStickyToDOM(key, stickyObj);
+        }
+
+        function addStickyToDOM(key, stickyObj) {
+            var stickies = document.getElementById("stickies");
+            var sticky = document.createElement("li");
+            sticky.setAttribute("id", key);
+
+            sticky.style.backgroundColor = stickyObj.color; //在JS中设置背景颜色，需要指定backgroundColor，而不是像CSS中那样指定background-color
+
+            var span = document.createElement("span");
+            span.setAttribute("class", "sticky"); //指定类名为"sticky"
+            span.innerHTML = stickyObj.value;
+            sticky.appendChild(span);
+            stickies.appendChild(sticky);
+            sticky.onclick = deleteSticky;
+        }
+        /*
+        每个即时贴上有一个事件处理程序来监听点击事件。点击一个即时贴时，会调用deleteSticky，并把一个时间对象传递到deleteSticky，
+        同时还会传递有关这个事件的信息，如点击了这个元素。
+        */
+        function  deleteSticky(e) {
+            var key = e.target.id; //目标(target)就是所点击并生成事件的元素，可以从target属性得到这个元素的id
+            if (e.target.tagName.toLowerCase() == "span") { //如果目标是<span>，则需要得到他的父元素<li>的id
+                key = e.target.parentNode.id;
+            }
+            localStorage.removeItem(key);
+            var stickiesArray = getStickiesArray();
+            if (stickiesArray) {
+                for (var i = 0; i < stickiesArray.length; i++) {
+                    if (key == stickiesArray[i]) {
+                        stickiesArray.splice(i, 1);
+                    }
+                }
+                localStorage.setItem("stickiesArray", JSON.stringify(stickiesArray));
+                removeStickyFromDOM(key);
+            }
+        }
+        function removeStickyFromDOM (key) {
+            var sticky = document.getElementById(key);
+            sticky.parentNode.removeChild(sticky);
+        }
+    </script>
+</head>
+<body>
+    <form>
+        <label for="note_color">Color: </label>
+        <select id="note_color">
+            <option value="LightGoldenRodYellow">yellow</option>
+            <option value="PaleGreen">green</option>
+            <option value="LightPink">pink</option>
+            <option value-"LightBlue">blue</option>
+        </select>
+        <label for="note_text">Text: </label>
+        <input type="text" id="note_text">
+        <input type="button" id="add_button" value="Add Sticky Note to Self">
+        <input type="button" id="clear_button" value="Clear Storage">
+    </form>
+
+    <ul id="stickies">
+    </ul>
+</body>
+</html>

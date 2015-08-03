@@ -1,0 +1,37 @@
+<!--
+Math.random() 随机生成0到1之间的一个随机数，不会为1
+Math.floor()  去除一个浮点数中小数部分
+undefined 数组越界访问可出现
+-->
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Phrase-o-matic</title>
+	<meta charset="utf-8">
+	<style>
+		body {
+			font-family: Verdana, Helvetica, sans-serif;
+		}
+	</style>
+	<script>
+	function makePhrases (){
+		var words1 = ["24/7", "multi-Tier", "30,000 foot", "B-to-B", "win-win"];
+		var words2 = ["empowers", "value-added", "oriented", "focused", "aligned"];
+		var words3 = ["process", "solution", "tipping-point", "strategy", "vision"];
+		
+		var rand1 = Math.floor(Math.random() * words1.length); //得到介于0到数组直接的一个数
+		var rand2 = Math.floor(Math.random() * words2.length);
+		var rand3 = Math.floor(Math.random() * words3.length);
+		
+		var phrase = words1[rand1] + " " + words2[rand2] + " " + words3[rand3];
+		var phraseElement = document.getElementById("phrase");
+		phraseElement.innerHTML = phrase;
+	}
+	window.onload = makePhrases;
+	</script>
+</head>
+<body>
+	<h1>Phrase-o-Matic says:</h1>
+	<p id="phrase"></p>
+</body>
+</html>

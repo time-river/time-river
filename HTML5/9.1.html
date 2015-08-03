@@ -1,0 +1,48 @@
+<!--
+Python中的字典与JavaScript键/值存储
+本地存储与数组的关系
+-->
+<!doctype html>
+<html>
+<head>
+    <title>First localStorage</title>
+    <style media="screen">
+
+    </style>
+    <script type="text/javascript">
+/* First
+        localStorage.setItem("sticky_0", "Pick up dry cleaning"); //通过localStorage对象使用Web Storage API。第一个字符串参数是键，数据项将按这个键存储，可是是任何名字。
+        localStorage.setItem("sticky_1", "Cancel cable tv, who needs it now?");//第二个字符串是希望在本地存储中存储的值。
+        var sticky = localStorage.getItem("sticky_0"); //.setItem方法取两个字符串作为参数，他们将作为键/值对。.getItem方法得到与键关联的值
+        alert(sticky);
+*/
+        window.onload = shellGame;
+        function shellGame() {
+            localStorage.setItem("she111", "pea");
+            localStorage.setItem("she112", "empty");
+            localStorage.setItem("she113", "empty");
+            localStorage["she111"] = "empty";
+            localStorage["she112"] = "pea";
+            localStorage["she113"] = "full";
+            var value = localStorage.getItem("she112");
+            localStorage.setItem("she111", value);
+            value = localStorage.getItem("she113");
+            localStorage["she112"] = value;
+            var key = "she112";
+            localStorage[key] = "pea";
+            key = "she111";
+            localStorage[key] = "empty";
+            key = "she113";
+            localStorage[key] = "full";
+
+            for (var i = 0; i < localStorage.length; i++) {
+                var key = localStorage.key(i);
+                var value = localStorage.getItem(key);
+                alert(key + ": " + value);
+            }
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

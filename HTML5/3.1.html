@@ -1,0 +1,55 @@
+<!--
+alert () 显示一个提醒
+button.onclick 点击事件
+.value 可以使用元素的value属性得到用户在输入域中输入的文本
+"" 空串是双引号，中间没有任何字符
+document.createElement() 创建一个新的元素
+ul.appendChild(li) 告诉ul元素为自己增加一个孩子li
+
+回顾code
+1.首先建立一个事件处理程序，用来处理用户点击"Add Song"按钮的事件。创建了一个函数handleButtonClick，并把"Add Song"按钮的onclick属性设置为这个函数。
+2.接下来，为按钮点击事件处理程序编写代码，从输入文本域得到歌名。使用input.value属性来得到文本，甚至还增加了一个检查，确保用户确实输入了一首歌。如果用户没有输入，就提醒他们。
+3.要把这首歌增加到播放列表，使用document.creatElement创建了一个<li>元素，并使用innerHTML把这个元素的内容设置为歌名。
+4.最后，把这个新<li>元素作为<ul>父元素的子元素增加到DOM。这里使用了appendChild，告诉<ul>元素"追加<li>元素作为一个子元素"，从而把它增加到DOM。元素增加到DOM时，浏览器会更新用户看到的页面，播放列表中将包含这首歌。 
+-->
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Webville Tunes</title>
+	<meta charset="utf-8">
+
+	<script>
+	window.onload = init;
+	function handleButtonClick() {
+		// alter ("Button was clicked!");  tag1.0
+		/*var textInput = document.getElementById("songTextInput");
+		var songName = textInput.value;
+		if (songName == "") {
+			alert("Please enter a song.");
+		} else {
+			alert("Adding " + songName);
+		} tag2.0 */
+		var textInput = document.getElementById("songTextInput");
+		var songName = textInput.value;
+		var li = document.createElement("li");
+		li.innerHTML = songName;
+		var ul = document.getElementById("playlist");
+		ul.appendChild(li);
+	}
+	function init(){
+		var button = document.getElementById("addButton");
+		button.onclick = handleButtonClick;
+	}
+	</script>
+</head>
+<body>
+	<form>
+
+		<input type="text" id="songTextInput" size="40" placeholder="Song name" value="Blue Suede Strings, by Elvis Pagely">
+		<input type="button" id="addButton" value="Add Song">
+	</form>
+	<ul id="playlist">
+	
+	</ul>
+</body>
+</html>

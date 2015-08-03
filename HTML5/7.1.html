@@ -1,0 +1,197 @@
+<!--
+CSS中指定大小相当于缩放，画布元素指定大小是扩展大小
+
+var selectObj = document.getElementById("shape");
+var index = selectObj.selectedIndex; //查找选择了哪个元素，为此得到所选元素的索引
+var shape = selectObj[index].value; 
+
+context.fillStyle = "lightblue"; // 属性值同CSS的使用一样
+context.fillRect(x, y, width, height); //绘制矩形
+context.beginPath(); //告诉画布开始一个新路径
+context.arc(x, y, radius, startAngle, endAngle, direction)
+	x,y确定圆心坐标
+	radius指定圆的半径
+	startAngle弧的起始角
+	endAndle终止角
+		与x轴之间的角，逆时针为负
+	direction 值true，顺时针画弧；false，逆时针
+context.moveTo(x, y); //把”铅笔“移动到画布一个指定点
+context.lineTo(x, y); //从当前点描到(x, y)
+context.closePath(); //闭合路径
+context.lineWidth = 5; //设置线宽 
+context stroke(); //用线描路径
+context.fill(); //填充绘制的图形
+
+ocntext.textAlign = "left"; //指定了文本的锚点位置，取值：start、end、left、right、center，在从右到左的语言中，start和end与left和right含义相同，比如英语，但是从右到左的语言相反
+context.fillText("text", x, y, maxwidth); //填充文本，可选的参数maxwidth，若文本宽度大于maxwidth，会导致文本缩放
+context.strokeText("text", x, y, maxwidth); //笔画文本
+context.font("字体样式 粗细 大小 字体族"); //字体属性
+context.textBaseline = "middle"; //基线属性设置字体中的对齐点，并确定字母所在的基线，取值：top、hanging、middle、alphabetic、ideographic、bottom
+
+var twitterBird = new Image(); //创建一个Image对象
+twitterBird.src = "twitterBird.png"; //源地址
+twitterBird.onload = function() { //图像不会立即加载，绘制图像之前确保图像完全加载
+	context.drawImage(twitterBird, 20, 120, 70, 70); //绘制图像 .drawImage(Image, x, y, width, height)
+};
+
+context.shadowBlur //设置阴影滤镜
+context.shadowOffsetX //设置阴影
+context.shadowOffsetY 		  //位置
+context.shadowColor //设置阴影颜色
+https://dev.w3.org/html5/2dcontext 画布API canvas是位图绘制
+-->
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Look What I Drew</title>
+	<meta charset="utf-8">
+	<style>
+		canvas {
+			border: 1px solid black;
+		}
+	</style>
+	<script>
+	window.onload = function() {
+		var button = document.getElementById("previewButton");
+		button.onclick = previewHandler;
+	};
+	
+	function previewHandler() {
+		var canvas = document.getElementById("tshirtCanvas");
+		var context = canvas.getContext("2d"); //明确指出需要一个2d上下文
+		fillBackgroundColor(canvas, context); //为绘图提供一个整洁的画布
+		drawSmileyFace();
+		var selectObj = document.getElementById("shape");
+		var index = selectObj.selectedIndex; //查找选择了哪个元素，为此得到所选元素的索引
+		var shape = selectObj[index].value; 
+		
+		if (shape == "squares") {
+			for(var squares = 0; squares < 20; squares++) {
+				drawSquare(canvas, context);
+			}
+		} else if(shape == "circles") {
+			for(var circles = 0; circles < 20; circles++) {
+				drawCircle(canvas, context);
+			} 
+		}
+		drawText(canvas, context);
+		drawBird(canvas, context);
+	}
+	function drawSquare (canvas, context) {
+		var w = Math.floor(Math.random() * 40);
+		var x = Math.floor(Math.random() * canvas.width);
+		var y = Math.floor(Math.random() * canvas.height);
+		
+		context.fillStyle = "lightblue"; 
+		context.fillRect(x, y, w, w);
+	}
+	function drawCircle(canvas, context) {
+		var radius = Math.floor(Math.random() * 40);
+		var x = Math.floor(Math.random() * canvas.width);
+		var y = Math.floor(Math.random() * canvas.height);
+		
+		context.beginPath();
+		context.arc(x, y, radius, 0, 2*Math.PI, true);
+		
+		context.fillStyle = "lightblue";
+		context.fill();
+	}
+	function fillBackgroundColor(canvas, context) {
+		var selectObj = document.getElementById("backgroundColor");
+		var index = selectObj.selectedIndex;
+		var bgColor = selectObj[index].value;
+		
+		context.fillStyle = bgColor;
+		context.fillRect(0, 0, canvas.width, canvas.height);
+	}
+	
+	//画个笑脸
+	function drawSmileyFace () {
+		var canvas = document.getElementById("smiley");
+		var context = canvas.getContext("2d");
+		
+		context.beginPath();
+		context.arc(300, 300, 200, 0, 2*Math.PI, true);
+		context.fillStyle = "#ffffcc";
+		context.fill();
+		context.stroke();
+		
+		context.beginPath();
+		context.arc(200, 250, 25, 0, 2*Math.PI, true);
+		context.stroke();
+		
+		context.beginPath();
+		context.arc(400, 250, 25, 0, 2*Math.PI, true);
+		context.stroke();
+		
+		context.beginPath();
+		context.moveTo(300, 300);
+		context.lineTo(300, 350);
+		context.stroke();
+		
+		context.beginPath();
+		context.arc(300, 350, 75, Math.PI/6, 5*Math.PI/6, false);
+		context.stroke();
+		}
+		
+	//绘制文本
+	function drawText(canvas, context) {
+		var selectObj = document.getElementById("foregroundColor");
+		var index = selectObj.selectedIndex;
+		var fgColor = selectObj[index].value;
+		
+		context.fillStyle = fgColor;
+		context.font = "bold 1em sans-serif";
+		context.textAlign = "left";
+		context.fillText("I saw this tweet", 20, 40);
+		
+		context.font = "bold 1em sans-serif";
+		context.textAlign = "right";
+		context.fillText("and all I got was this Jousy t-shirt!", canvas.width-20, canvas.height-40);
+	}
+	//增加图像
+	function drawBird(canvas, context) {
+		var twitterBird = new Image();
+		twitterBird.src = "twitterBird.png";
+		twitterBird.onload = function() {
+			context.drawImage(twitterBird, 20, 120, 70, 70);
+		};
+	}
+	</script>
+</head>
+<body>
+
+<canvas id="tshirtCanvas" width="600" height="200">
+	Hey you, yes YOU, upgrade your browser!!</canvas>
+<!--如果用户的浏览器不支持画布，显示此消息-->
+
+<canvas id="smiley" width="600" height="600"></canvas>
+<form>
+<p>
+	<label for="backgroundColor">Select background color:</label>
+	<select id="backgroundColor">
+		<option value="white" selected="selected">White</option>
+		<option value="black">Black</option>
+	</select>
+</p>
+<p>
+	<label for="shape">Circles or squares?</label>
+	<select id="shape">
+		<option value="circles" selected="selected">Circles</option>
+		<option value="squares">Squares</option>
+	</select>
+</p>
+<p>
+	<label for"foregroundColor">Select text color:</label>
+	<select id="foregroundColor">
+		<option value="black" selected="selected">Black</option>
+		<option value="white">White</option>
+	</select>
+</p>
+
+<p>
+	<input type="button" id="previewButton" value="Preview">
+</p>
+</form>
+</body>
+</html>
