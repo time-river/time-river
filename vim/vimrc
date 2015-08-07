@@ -1,0 +1,191 @@
+"======主题设置======"
+set number		     "显示行号
+set scrolloff=3              "光标上下两侧保留三行
+set errorbells               "错误信息响铃
+set visualbell               "使用可视响领代替鸣叫 
+syntax enable                "语法高亮
+colorscheme PaperColor       "设置配色 vcbc
+set guifont=Monospace        "设置字体
+
+"======功能设置======"
+set nocompatible             "不兼容vi模式
+set shortmess=               "没有消息缩写
+set autoread                 "自动读取被修改的文件
+set autowrite                "自动把内容写回文件
+set clipboard=unnamed        "使用剪贴板寄存器
+set nobackup		         "关闭备份
+set noswapfile               "缓冲区不使用交换文件
+set cursorline               "高亮光标所在屏幕行
+set gdefault                 "行内匹配都被替换
+set whichwrap=b,s,<,>,[,]    "指定光标键功能
+set backspace=2              "回格键设置
+set mouse=a                  "启用鼠标
+set selection=inclusive      "选择区行为
+set selectmode=mouse,key     "指定启用选择模式的场合     
+"set spell                    "拼写检查
+"set guioptions               "GUI选项
+
+"======折叠设置======"
+set foldenable               "启用折叠
+set foldmethod=indent        "相同缩进距离的行为构成折叠
+
+"======状态行设置======"
+set ruler		     "显示光标位置的行号和列号
+set laststatus=1             "只有在至少两个窗口显示状态行
+set statusline=%f%=%v-%l-%N-%p%%--%y    "状态栏信息:相对路径/列/行/页/文件类型
+
+"======命令行设置======"
+set showcmd                  "显示命令
+set cmdheight=1              "命令行使用的屏幕行数
+set confirm                  "执行command，如果有操作需要确认，显示对话框
+set history=100              "设置历史记录数
+set wildmenu                 "命令行补全以增强模式运行
+
+"======搜索设置======"
+set ignorecase       	     "搜索忽略大小写
+set nosmartcase              "开启，如果搜索模式包含大写字符,不使用increase.\c \C选项
+set hlsearch		         "搜索逐字符高亮
+set incsearch	             "搜索逐字符高亮
+set magic                    "改变搜索模式使用的特殊字符
+
+"======制表符策略======"
+set tabstop=4                "Tab键的宽度
+set softtabstop=4            "统一缩进为4
+set shiftwidth=4             "使用每层缩进的空格数
+set expandtab                "用空格代替制表符 noexpantab不用空格代替
+set smarttab                 "在行首按TAB使用shiftwidth个空格，否则加入tabstop个空格
+
+"======编码设置======"
+set termencoding=utf-8       "tenc是用于告知VIM说终端是使用何种文本编码方式来作文本输入和显示，默认enc
+set encoding=utf-8           "enc是VIM的内部编码表示方式，默认为local
+set fileencoding =utf-8      "fenc设置为当前缓冲区内的文件的文本编码
+set fileencodings=utf-8,ucs-bom,gb18030,big5,gbk,,cp936,gb2312,shift-jis    "简写为fencs，fencs是vim确定fenc的值的来源之一
+
+"======语言设置======"
+set helplang=cn,en           "使用中文帮助,英文次之 
+"language name                "当前的语言设置称name
+language messages C          "消息语言
+"language ctype name         "字符编码的语言
+language time C              "时间和日期消息的语言
+
+"======filetype设置======"
+filetype on                  "侦测文件类型
+filetype plugin on           "为特定的文件类型允许插件文件的载入
+filetype indent on           "为特定的文件类型载入缩进文件
+
+  "======代码补全======"
+  set completeopt=preview,menuone    
+
+  "======部分语言添加字典补全======"
+  au filetype c          setlocal dict+=~/.vim/dict/c.dict
+  au filetype cpp        setlocal dict+=~/.vim/dict/cpp.dict
+  au filetype css        setlocal dict+=~/.vim/dict/css.dict
+  au filetype php        setlocal dict+=~/.vim/dict/php.dict
+  au filetype html       setlocal dict+=~/.vim/dict/html.dict
+  au filetype html       setlocal dict+=~/.vim/dict/css.dict
+  au filetype html       setlocal dict+=~/.vim/dict/javascript.dict
+  au filetype java       setlocal dict+=~/.vim/dict/java.dict
+  au filetype python     setlocal dict+=~/.vim/dict/python.dict
+  au filetype javascript setlocal dict+=~/.vim/dict/javascript.dict
+
+  "======缩进规则======"
+  set cindent                "C缩进规则缩进
+  set autoindent             "新行从当前行复制缩进距离
+  set smartindent            "开启新行使用只能缩进
+  
+  "======新文件标题======"
+  autocmd BufNewFile *.c,*.h,*.cpp,*.py,*.sh,*.java execute "call SetTitle()"
+  function SetTitle()
+      if &filetype == 'sh' || &filetype == 'python'
+          call setline(1, "############################################################################")
+          call append (1, "    #>File Name:  " . expand("%"))                               
+          call append (2, "    #>Author:     time-river")                                
+          call append (3, "    #>E-mail:     feather12315@live.com")                     
+          call append (4, "    #>Creat Time: " . strftime("%A %b/%d %X ") . "UTC" . strftime("%z %Y"))    
+          call append (5, "    #>Copyright © " . strftime("%Y"))                          
+          call append (6, "############################################################################")
+      else
+          call  setline(1, "/**************************************************************************")
+          call append (1, "    *>File Name:  " . expand("%"))
+          call append (2, "    *>Author:     time-river")
+          call append (3, "    *>E-mail:     feather12315@live.com")
+          call append (4, "    *>Creat Time: " . strftime("%A %b/%d %X ") . "UTC" . strftime("%z %Y"))
+          call append (5, "    *>Copyright © " . strftime("%Y"))
+          call append (6, "\**************************************************************************/")
+      endif
+      call append(7, "")
+      if &filetype == 'c'
+          call append(8,  "#include<stdio.h>")
+          call append(9,  "")
+      elseif &filetype == 'h' || &filetype == 'cpp'
+          call append(8,  "#include<iostream>")
+          call append(9,  "using namespace std;")
+          call append(10, "")
+      elseif &filetype == 'python'
+          call append(8,  "")
+          call append(0,  "#!/usr/bin/env python3")
+          call append(1,  "# -*- coding: utf-8 -*-")
+          call append(2,  "")
+      elseif &filetype == 'sh'
+          call append(8,  "")
+          call append(0,  "#!/bin/bash")
+          call append(1,  "")
+      elseif &filetype == 'java'
+          call append(8,  "")
+      endif
+  endfunction
+  autocmd BufNewFile * normal G 
+
+"======缩写定义======"
+iabbrev  /**  /***************************************
+iabbrev  **/  <BackSpace>**************************************/
+
+"======映射命令======"
+                     "======括号&引号自动匹配======"
+  set showmatch                "插入括号时，短暂地跳转到匹配的对应括号
+  set matchtime=5              "置位showtime显示配对括号的十分之一秒数
+  inoremap ( ()<Esc>i
+  inoremap ) <C-R>=ClosePair(')')<CR> 
+  inoremap { {<CR>}<Esc>O
+  inoremap } <C-R>=ClosePair('}')<CR>
+  inoremap [ []<Esc>i
+  inoremap ] <C-R>=ClosePair(']')<CR>
+  inoremap < <><Esc>i
+  inoremap > <C-R>=ClosePair('>')<CR>
+  inoremap " ""<Esc>i
+  inoremap ' ''<Esc>i
+    function ClosePair(char)
+         if getline('.')[col('.') - 1] == a:char
+             return "\<Right>"
+         else
+             return a:char
+         endif
+    endfunction
+
+                     "运行不调试"
+  map <F5> :call Run()<CR>     
+    function Run()
+      execute "w"
+      if &filetype == 'c'
+          execute "!gcc % -o %<"
+	      execute "!time ./%<"
+      elseif &filetype == 'cpp'
+          execute "!g++ % -o %<"
+          execute "!time ./%<"
+      elseif &filetype == 'java' 
+          execute "!javac %" 
+          execute "!java %<"
+      elseif &filetype == 'sh'
+          execute "!bash %"
+          "亦可:!bash %"
+      elseif &filetype == 'python'
+	      execute  "!python3 %"
+      endif 
+    endfunction
+
+ "" map  <F2> :set paste<CR>
+ "" map  <F3> :set nopaste<CR>
+ "" imap <F3> :set <C-O>:set paste<CR>: set nopaste<CR> 
+ "" imap <F3> <nop>
+  set pastetoggle=<F3>
+
