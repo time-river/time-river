@@ -89,14 +89,17 @@ filetype indent on           "为特定的文件类型载入缩进文件
   au filetype javascript setlocal dict+=~/.vim/dict/javascript.dict
 
   "======缩进规则======"
-  set cindent                "C缩进规则缩进
-  set autoindent             "新行从当前行复制缩进距离
   set smartindent            "开启新行使用只能缩进
+  if &filetype == 'h' || &filetype == 'c' || &filetype == 'cpp'
+      set cindent                "C缩进规则缩进
+  else
+      set autoindent             "新行从当前行复制缩进距离
+  endif
   
   "======新文件标题======"
   autocmd BufNewFile *.c,*.h,*.cpp,*.py,*.sh,*.java execute "call SetTitle()"
   function SetTitle()
-      if &filetype == 'sh' || &filetype == 'python'
+       if &filetype == 'sh' || &filetype == 'python'
           call setline(1, "############################################################################")
           call append (1, "    #>File Name:  " . expand("%"))                               
           call append (2, "    #>Author:     time-river")                                
@@ -141,19 +144,20 @@ iabbrev  /**  /***************************************
 iabbrev  **/  <BackSpace>**************************************/
 
 "======映射命令======"
+  "inoremap ; ;<CR>
                      "======括号&引号自动匹配======"
   set showmatch                "插入括号时，短暂地跳转到匹配的对应括号
   set matchtime=5              "置位showtime显示配对括号的十分之一秒数
   inoremap ( ()<Esc>i
-  inoremap ) <C-R>=ClosePair(')')<CR> 
+  inoremap ) <C-R>=ClosePair(')')<CR>
   inoremap { {<CR>}<Esc>O
   inoremap } <C-R>=ClosePair('}')<CR>
   inoremap [ []<Esc>i
   inoremap ] <C-R>=ClosePair(']')<CR>
   inoremap < <><Esc>i
   inoremap > <C-R>=ClosePair('>')<CR>
-  inoremap " ""<Esc>i
-  inoremap ' ''<Esc>i
+  "inoremap " ""<Esc>i
+  "inoremap ' ''<Esc>i
     function ClosePair(char)
          if getline('.')[col('.') - 1] == a:char
              return "\<Right>"
