@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>time-river</title>
+        <link rel="stylesheet" href="css/HomePage.css">	
+	<link rel="stylesheet" href="css/vegas.min.css">
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/vegas.js"></script>
+    </head>
+    <body>
+        <header id="header">
+            <a title="time-river's introduction" href="infomation/time-river.html">time-river&#39;s blog</a>
+        </header>
+        <div id="Fibonacci">
+            <a href="infomation/Fibonacci.html"><img title="Fibonacci's story" src="images/Fibonacci.png"></a>
+        </div>
+        <nav id="navigator">
+            <table>
+                <tr>
+                    <td>&#160;<a href="">timeline<br><span>时光轴</span></a>&#160;</td>
+                    <td>&#160;<a href="">label<br><span>标签</span></a>&#160;</td>
+                    <td>&#160;<a href="">essay<br><span>随笔</span></a>&#160;</td>
+                    <td>&#160;<a href="">about<br><span>关于</span></a>&#160;</td>
+                </tr>
+            </table>
+         </nav>
+<script>
+$('#example, body').vegas({
+ delay: 30000,
+ transitionDuration: 5000,
+ slides: [
+ { src: 'images/GoogleNowWallpapers/Austin(Day).png' },
+ { src: 'images/GoogleNowWallpapers/Austin(Evening).png' },
+ { src: 'images/GoogleNowWallpapers/Austin(Night).png' },
+ { src: 'images/GoogleNowWallpapers/Austin(Down).png' }
+ ]
+});
+</script>
+     </body>
+</html>

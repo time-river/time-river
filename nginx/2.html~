@@ -1,0 +1,263 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>time-river</title>
+         <style>
+/***************************************
+  样式表组织方式:
+                    布局(layout)
+                    样式(style)
+                    动画(animation)
+ **************************************/
+@font-face {
+    font-family: "LTCircular";
+    src: url("fonts/circularstd-bold.otf");
+}
+#header {
+    position: relative;
+    top: 100px;
+    text-align: center;
+
+    font-family: "LTCircular"; 
+    font-size: 68px;
+    font-weight: bold;
+    text-shadow: 0px 2px 13px black;
+    
+    animation: all 1s ease-out;
+    -o-animation: all 1s ease-out;
+    -moz-animation: all 1s ease-out;
+    -webkit-animation: all 1s ease-out;
+    
+}
+#header a {
+    color: #fff;
+    text-decoration: none;
+
+    transition: color 0.8s linear, text-shadow 0.8s ease-in-out;
+    -o-transition: color 0.8s linear, text-shadow 0.8s ease-in-out;
+    -moz-transition: color 0.8s linear, text-shadow 0.8s ease-in-out;
+    -webkit-transition: color 0.8s linear, text-shadow 0.8s ease-in-out; 
+}
+#header a:hover {
+    text-shadow: 1px 1px 3px #969696;
+}
+
+#Fibonacci {
+    position: relative;
+    top: 180px; 
+    text-align: center;
+}
+#Fibonacci a img{
+    height: 150px;
+    width: 150px;
+    margin: auto;
+
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+
+    box-shadow: 0px 0px 2px 3px rgba(255, 255, 255, 0.7), 0px 0px 30px 8px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 0px 2px 3px rgba(225, 225, 225, 0.7), 0px 0px 30px 8px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: 0px 0px 2px 3px rgba(225, 225, 225, 0.7), 0px 0px 30px 8px rgba(0, 0, 0, 0.25);
+
+    transition: all 0.8s ease-out;
+    -o-transition: all 0.8 ease-out;/* Opera */
+    -moz-transition: all 0.8s ease-out;/* Firefox 4 */
+    -webkit-transition: all 0.8s ease-out;/* Safari and Chrome */
+}
+#Fibonacci a:hover img{
+    width: 250px;
+    height: 250px;
+
+    transform: rotateZ(-360deg);
+    -o-transform: rotateZ(-360deg);
+    -ms-transform: rotateZ(-360deg);
+    -moz-transform: rotateZ(-360deg);
+    -webkit-transform: rotateZ(-360deg);
+}
+
+#navigator {
+    position: relative;
+    top: 280px;
+}
+#navigator table {
+    height: 70px; 
+    width: 600px;
+    margin: auto;
+    text-align: center;
+    list-style: none;
+    font-family: "LTCircular";
+    background-color: rgba(0, 0, 0, 0.2);
+
+    border-radius: 1.5em;
+    -moz-border-radius: 1.5em;
+    -webkit-border-radius: 1.5em;
+}
+#navigator table tr {
+    width: 600px;
+    height: 70px;
+    margin: 0;
+    border: 0;
+    overflow: hidden;
+
+    transition: height 0.5s cubic-bezier(0.4, 0, 1, 1);
+    -o-transition: height 0.5s cubic-bezier(0.4, 0, 1, 1);
+    -moz-transition: height 0.5s cubic-bezier(0.4, 0, 1, 1);  
+    -webkit-transition: height 0.5s cubic-bezier(0.4, 0, 1, 1); 
+}
+#navigator table tr:hover {
+    height: 128px;
+}
+#navigator table tr td {
+    display: inline-block;
+
+    color: #969696;
+    width: 149px;
+    padding: 0;
+    height: 70px;
+    font-size: 32px;
+    font-family: "LTCircular";
+    line-height: 64px;
+    overflow: hidden;
+
+    transition: background 0.6s;
+    -o-transition: background 0.6s;
+    -moz-transition: background 0.6s;
+    -webkit-transition: background 0.6s;
+ 
+    transition: height 0.5s cubic-bezier(0.4, 0, 1, 1);
+    -o-transition: height 0.5s cubic-bezier(0.4, 0, 1, 1);
+    -moz-transition: height 0.5s cubic-bezier(0.4, 0, 1, 1);  
+    -webkit-transition: height 0.5s cubic-bezier(0.4, 0, 1, 1); 
+}
+#navigator table tr td:hover {
+    height: 128px;
+    margin-top: 0px;
+    background: rgba(3, 169, 224, 0.4);
+    
+    border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    -webkit-border-radius: 0.5em;
+}
+#navigator table tr td a {
+    color: #fff;
+    text-decoration: none;
+
+    transition: text-shadow 0.5s ease-in-out;
+    -o-transition: text-shadow 0.5s ease-in-out;
+    -moz-transition: text-shadow 0.5s ease-in-out;
+    -webkit-transition: text-shadow 0.5s ease-in-out;
+}
+#navigator table  tr td a:hover {
+    text-shadow: 0px 2px 13px black;
+}
+
+/***************************************
+  幻灯片背景
+ **************************************/
+@keyframes slide-fadeInOut {
+    0%  {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0;
+    }
+    75% {
+        opacity: 1;
+    }
+}
+@-o-keyframes slide-fadeInOut {
+    0%  {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0;
+    }
+    75% {
+        opacity: 1;
+    } 
+}
+@-moz-keyframes slide-fadeInOut {
+    0%  {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0;
+    }
+    75% {
+        opacity: 1;
+    }
+}
+@-webkit-keyframes slide-fadeInOut {
+    0%  {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0;
+    }
+    75% {
+        opacity: 1;
+    }
+}
+.slide-fadeInOut {
+    animation: fadeInOut;
+    animation-duration: 12s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    -o-animation: fadeInOut;
+    -o-animation-duration: 12s;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-iteration-count: infinite;
+    -o-animation-direction: alternate;
+    -moz-animation: fadeInOut;
+    -moz-animation-duration: 12s;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-direction: alternate;
+    -webkit-animation: fadeInOut;
+    -webkit-animation-duration: 12s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+}
+/*@keyframes*/ 
+body {
+    background-color: #fafad2;
+   /* background-image: url(")*/
+}
+    </style>
+<link rel="stylesheet" href="http://jaysalvat.github.io/vegas/releases/latest/vegas.min.css">
+<script src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://jaysalvat.github.io/vegas/releases/latest/vegas.js"></script>
+    </head>
+    <body>
+        <header id="header">
+            <a title="time-river's introduction" href="infomation/time-river.html">time-river&#39;s blog</a>
+        </header>
+        <div id="Fibonacci">
+            <a href="infomation/Fibonacci.html"><img title="Fibonacci's story" src="images/Fibonacci.png"></a>
+        </div>
+        <nav id="navigator">
+            <table>
+                <tr>
+                    <td>&#160;<a href="">timeline<br><span>时光轴</span></a>&#160;</td>
+                    <td>&#160;<a href="">label<br><span>标签</span></a>&#160;</td>
+                    <td>&#160;<a href="">essay<br><span>随笔</span></a>&#160;</td>
+                    <td>&#160;<a href="">about<br><span>关于</span></a>&#160;</td>
+                </tr>
+            </table>
+         </nav>
+<script>
+$('#example, body').vegas({
+ slides: [
+ { src: '1.jpg' },
+ { src: '2.jpg' },
+ { src: '2.jpg' },
+ { src: '1.jpg' }
+ ]
+});
+</script>
+     </body>
+</html>
