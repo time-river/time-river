@@ -30,12 +30,13 @@
 >>[vim-colorschemes](https://github.com/flazz/vim-colorschemes)  
 >>>>`git clone git@github.com:flazz/vim-colorschemes.git`  
 
->>>Make your terminal support 256 colors  
->>>>`$echo "export TERM=vte-256color" > ~/.bascrc`  
+>>>Make your xterm-terminal support 256 colors  
+>>>>`echo "export TERM=xterm-256color' >> ~/.bashrc
 
 >>References  
 >>>http://blog.chinaunix.net/uid-26495963-id-3314687.html  
 >>>http://ju.outofmemory.cn/entry/150066  
+>>>http://www.it165.net/os/html/201310/6462.html
 
 >Plugin  
 >>[vim-autocomplpop](https://github.com/othree/vim-autocomplpop)  
