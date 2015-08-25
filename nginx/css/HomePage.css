@@ -8,6 +8,11 @@
     font-family: "LTCircular";
     src: url("../fonts/circularstd-bold.otf");
 }
+@font-face {
+    font-family: "YueYuan";
+    src: url("../fonts/MFYueYuan_Noncommercial-Regular.otf");
+}
+
 #header {
     position: relative;
     top: 100px;
@@ -81,7 +86,6 @@
     margin: auto;
     text-align: center;
     list-style: none;
-    font-family: "LTCircular";
     background-color: rgba(0, 0, 0, 0.2);
 
     border-radius: 1.5em;
@@ -89,7 +93,6 @@
     -webkit-border-radius: 1.5em;
 }
 #navigator table tr {
-
     margin: 0;
     border: 0;
     overflow: hidden;
@@ -119,10 +122,10 @@
     -moz-transition: background 0.6s;
     -webkit-transition: background 0.6s;
  
-    transition: height 0.5s cubic-bezier(0.4, 0, 1, 1);
-    -o-transition: height 0.5s cubic-bezier(0.4, 0, 1, 1);
-    -moz-transition: height 0.5s cubic-bezier(0.4, 0, 1, 1);  
-    -webkit-transition: height 0.5s cubic-bezier(0.4, 0, 1, 1); 
+    transition: height 0.4s cubic-bezier(0.4, 0, 1, 1);
+    -o-transition: height 0.4s cubic-bezier(0.4, 0, 1, 1);
+    -moz-transition: height 0.4s cubic-bezier(0.4, 0, 1, 1);  
+    -webkit-transition: height 0.4s cubic-bezier(0.4, 0, 1, 1); 
 }
 #navigator table tr td:hover {
     height: 128px;
@@ -145,84 +148,12 @@
 #navigator table  tr td a:hover {
     text-shadow: 0px 2px 13px black;
 }
+#navigator table tr td a span {
+    font-family: "YueYuan";
+}	
 
-/***************************************
-  幻灯片背景
- **************************************/
-@keyframes slide-fadeInOut {
-    0%  {
-        opacity: 1;
-    }
-    25% {
-        opacity: 0;
-    }
-    75% {
-        opacity: 1;
-    }
-}
-@-o-keyframes slide-fadeInOut {
-    0%  {
-        opacity: 1;
-    }
-    25% {
-        opacity: 0;
-    }
-    75% {
-        opacity: 1;
-    } 
-}
-@-moz-keyframes slide-fadeInOut {
-    0%  {
-        opacity: 1;
-    }
-    25% {
-        opacity: 0;
-    }
-    75% {
-        opacity: 1;
-    }
-}
-@-webkit-keyframes slide-fadeInOut {
-    0%  {
-        opacity: 1;
-    }
-    25% {
-        opacity: 0;
-    }
-    75% {
-        opacity: 1;
-    }
-}
-.slide-fadeInOut {
-    animation: fadeInOut;
-    animation-duration: 12s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-    -o-animation: fadeInOut;
-    -o-animation-duration: 12s;
-    -o-animation-timing-function: ease-in-out;
-    -o-animation-iteration-count: infinite;
-    -o-animation-direction: alternate;
-    -moz-animation: fadeInOut;
-    -moz-animation-duration: 12s;
-    -moz-animation-timing-function: ease-in-out;
-    -moz-animation-iteration-count: infinite;
-    -moz-animation-direction: alternate;
-    -webkit-animation: fadeInOut;
-    -webkit-animation-duration: 12s;
-    -webkit-animation-timing-function: ease-in-out;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-direction: alternate;
-}/*
-@keyframes*/ 
 body {
     background-color: #fafad2;
-    background-image: url("../images/GoogleNowWallpapers/AustinDawn.png");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center center;
-   /* background-image: url(")*/
 }
 
 
