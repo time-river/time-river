@@ -4,7 +4,7 @@ set scrolloff=3              "光标上下两侧保留三行
 set errorbells               "错误信息响铃
 set visualbell               "使用可视响领代替鸣叫 
 syntax enable                "语法高亮
-colorscheme PaperColor       "设置配色 vcbc
+colorscheme  PaperColor      "设置配色 vcbc
 set guifont=Monospace        "设置字体
 
 "======功能设置======"
@@ -48,13 +48,6 @@ set hlsearch		         "搜索逐字符高亮
 set incsearch	             "搜索逐字符高亮
 set magic                    "改变搜索模式使用的特殊字符
 
-"======制表符策略======"
-set tabstop=4                "Tab键的宽度
-set softtabstop=4            "统一缩进为4
-set shiftwidth=4             "使用每层缩进的空格数
-set expandtab                "用空格代替制表符 noexpantab不用空格代替
-set smarttab                 "在行首按TAB使用shiftwidth个空格，否则加入tabstop个空格
-
 "======编码设置======"
 set termencoding=utf-8       "tenc是用于告知VIM说终端是使用何种文本编码方式来作文本输入和显示，默认enc
 set encoding=utf-8           "enc是VIM的内部编码表示方式，默认为local
@@ -63,7 +56,7 @@ set fileencodings=utf-8,ucs-bom,gb18030,big5,gbk,,cp936,gb2312,shift-jis    "简
 
 "======语言设置======"
 set helplang=cn,en           "使用中文帮助,英文次之 
-"language name                "当前的语言设置称name
+"language name               "当前的语言设置称name
 language messages C          "消息语言
 "language ctype name         "字符编码的语言
 language time C              "时间和日期消息的语言
@@ -71,7 +64,23 @@ language time C              "时间和日期消息的语言
 "======filetype设置======"
 filetype on                  "侦测文件类型
 filetype plugin on           "为特定的文件类型允许插件文件的载入
-filetype indent on           "为特定的文件类型载入缩进文件
+filetype indent on     "为特定的文件类型载入缩进文件
+
+  "======制表符策略======"
+  set expandtab                "用空格代替制表符 noexpantab不用空格代替
+  set smarttab                 "在行首按TAB使用shiftwidth个空格，否则加入tabstop个空格
+  autocmd BufWinEnter * execute "call TabRule()"
+  function TabRule()
+      if &filetype == 'html' || &filetype == 'css' ||  &filetype == 'javascript' 
+      	  set tabstop=2
+          set softtabstop=2
+          set shiftwidth=2
+      else
+          set tabstop=4            "Tab键的宽度
+          set softtabstop=4        "统一缩进为4
+          set shiftwidth=4         "使用每层缩进的空格数
+      endif
+  endfunction
 
   "======代码补全======"
   set completeopt=preview,menuone    
@@ -86,15 +95,21 @@ filetype indent on           "为特定的文件类型载入缩进文件
   au filetype html       setlocal dict+=~/.vim/dict/javascript.dict
   au filetype java       setlocal dict+=~/.vim/dict/java.dict
   au filetype python     setlocal dict+=~/.vim/dict/python.dict
-  au filetype javascript setlocal dict+=~/.vim/dict/javascript.dict
+  "au filetype javascript setlocal dict+=~/.vim/dict/javascript.dict
 
   "======缩进规则======"
-  set smartindent            "开启新行使用只能缩进
-  if &filetype == 'h' || &filetype == 'c' || &filetype == 'cpp'
-      set cindent                "C缩进规则缩进
-  else
-      set autoindent             "新行从当前行复制缩进距离
-  endif
+
+  autocmd BufWinEnter *.* execute "call IndextRule()"
+  function IndextRule()
+      if &filetype != '' && &filetype != 'text' && &filetype != 'html' && &filetype != 'css' && &filetype != 'javascript'
+ 	  set autoindent         "新行从当前行复制缩进距离        
+          if &filetype == 'h' || &filetype == 'c' || &filetype == 'cpp'
+              set cindent        "C缩进规则缩进
+          else
+      	      set smartindent
+          endif
+      endif
+  endfunction
   
   "======新文件标题======"
   autocmd BufNewFile *.c,*.h,*.cpp,*.py,*.sh,*.java execute "call SetTitle()"
@@ -106,7 +121,7 @@ filetype indent on           "为特定的文件类型载入缩进文件
           call append (3, "    #>E-mail:     feather12315@live.com")                     
           call append (4, "    #>Creat Time: " . strftime("%A %b/%d %X ") . "UTC" . strftime("%z %Y"))    
           call append (5, "    #>Copyright © " . strftime("%Y"))                          
-          call append (6, "############################################################################")
+          ca ll append (6, "############################################################################")
       else
           call  setline(1, "/**************************************************************************")
           call append (1, "    *>File Name:  " . expand("%"))
@@ -135,7 +150,7 @@ filetype indent on           "为特定的文件类型载入缩进文件
           call append(1,  "")
       elseif &filetype == 'java'
           call append(8,  "")
-      endif
+      endif 
   endfunction
   autocmd BufNewFile * normal G 
 
@@ -150,7 +165,8 @@ iabbrev  **/  <BackSpace>**************************************/
   set matchtime=5              "置位showtime显示配对括号的十分之一秒数
   inoremap ( ()<Esc>i
   inoremap ) <C-R>=ClosePair(')')<CR>
-  inoremap { {<CR>}<Esc>O
+  inoremap { {}<Esc>i
+  "inoremap { {<CR>}<Esc>O
   inoremap } <C-R>=ClosePair('}')<CR>
   inoremap [ []<Esc>i
   inoremap ] <C-R>=ClosePair(']')<CR>
