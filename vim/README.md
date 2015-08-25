@@ -48,6 +48,12 @@
 >>[vim-The-NERD-tree](https://github.com/vim-scripts/The-NERD-tree)
 >>>>`git clone git@github.com:vim-scripts/The-NERD-tree.git` 
 
+>>[vim-css-color](https://github.com/ap/vim-css-color)
+>>>>`git clone git@github.com:ap/vim-css-color.git`
+
+>>[html5.vim](https://github.com/othree/html5.vim)
+>>>>`git clone git@github.com:othree/html5.vim.git`
+
 >Question
 >>Language settings                     `65~69 lines of the vimrc`  
 >>Garbage problem && Encoding Settings  `59~62 lines of the vimrc`  
