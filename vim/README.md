@@ -55,6 +55,9 @@
 >>[html5.vim](https://github.com/othree/html5.vim)
 >>>>`git clone git@github.com:othree/html5.vim.git`
 
+>>[vim-better-css-indent](https://github.com/miripiruni/vim-better-css-indent)
+>>>>`git@github.com:miripiruni/vim-better-css-indent.git`
+
 >Question
 >>Language settings                     `65~69 lines of the vimrc`  
 >>Garbage problem && Encoding Settings  `59~62 lines of the vimrc`  
