@@ -103,3 +103,5 @@ mail服务器(待配置)
 
 >正则表达式
 >>[正则表达式](https://zh.wikipedia.org/wiki/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F)
+
+#####该内容遵循[署名(BY)-非商业性(NC)-相同方式共享(SA)协议](https://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.zh)
