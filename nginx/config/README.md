@@ -72,3 +72,10 @@ ssl身份验证、强制ssl加密连接(通过80端口重定向)
 反向代理、反向代理性能调优:缓冲、缓存、压缩
 mail服务器(待配置)
 ```
+
+####参考网址
+>[How to force or redirect to SSL in nginx?](http://serverfault.com/questions/250476/how-to-force-or-redirect-to-ssl-in-nginx)  
+>[Converting rewrite rules](http://nginx.org/en/docs/http/converting_rewrite_rules.html)  
+>[NGINX 配置 SSL 证书 + 搭建 HTTPS 网站教程](https://s.how/nginx-ssl/)  
+>[Certificate Installation: NGINX](https://support.comodo.com/index.php?/Default/Knowledgebase/Article/View/789/37/)
+
