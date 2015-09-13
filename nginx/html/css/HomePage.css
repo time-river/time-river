@@ -4,13 +4,16 @@
                     样式(style)
                     动画(animation)
  **************************************/
-@font-face {
-    font-family: "LTCircular";
-    src: url("../fonts/circularstd-bold.otf");
+@charset "utf-8";
+html {
+  height: 100%;
 }
-@font-face {
-    font-family: "YueYuan";
-    src: url("../fonts/MFYueYuan_Noncommercial-Regular.otf");
+body {
+    font-family: "Microsoft Yahei", sans-serif;
+    background-color: #fafad2;
+    background-image: url("../images/GoogleNowWallpapers/AustinNight.png");
+    background-position: center center;
+    height: 100%;
 }
 
 #header {
@@ -29,7 +32,7 @@
     -webkit-animation: all 1s ease-out;
     
 }
-#header a {
+#header > a {
     color: #fff;
     text-decoration: none;
 
@@ -38,7 +41,7 @@
     -moz-transition: color 0.8s linear, text-shadow 0.8s ease-in-out;
     -webkit-transition: color 0.8s linear, text-shadow 0.8s ease-in-out; 
 }
-#header a:hover {
+#header > a:hover {
     text-shadow: 1px 1px 3px #969696;
 }
 
@@ -47,7 +50,7 @@
     top: 180px; 
     text-align: center;
 }
-#Fibonacci a img{
+#Fibonacci > a > img{
     height: 150px;
     width: 150px;
     margin: auto;
@@ -65,7 +68,7 @@
     -moz-transition: all 0.8s ease-out;/* Firefox 4 */
     -webkit-transition: all 0.8s ease-out;/* Safari and Chrome */
 }
-#Fibonacci a:hover img{
+#Fibonacci > a:hover > img{
     width: 250px;
     height: 250px;
 
@@ -80,7 +83,7 @@
     position: relative;
     top: 280px;
 }
-#navigator table {
+#navigator > table {
     height: 74px; 
     width: 619px;
     margin: auto;
@@ -92,7 +95,7 @@
     -moz-border-radius: 1.5em;
     -webkit-border-radius: 1.5em;
 }
-#navigator table tr {
+tr {
     margin: 0;
     border: 0;
     overflow: hidden;
@@ -102,10 +105,10 @@
     -moz-transition: height 0.5s cubic-bezier(0.4, 0, 1, 1);  
     -webkit-transition: height 0.5s cubic-bezier(0.4, 0, 1, 1); 
 }
-#navigator table tr:hover {
+tr:hover {
     height: 128px;
 }
-#navigator table tr td {
+td {
     display: inline-block;
 
     color: #969696;
@@ -117,41 +120,37 @@
     line-height: 64px;
     overflow: hidden;
 
-    transition: background 0.6s;
-    -o-transition: background 0.6s;
-    -moz-transition: background 0.6s;
-    -webkit-transition: background 0.6s;
- 
-    transition: height 0.4s cubic-bezier(0.4, 0, 1, 1);
-    -o-transition: height 0.4s cubic-bezier(0.4, 0, 1, 1);
-    -moz-transition: height 0.4s cubic-bezier(0.4, 0, 1, 1);  
-    -webkit-transition: height 0.4s cubic-bezier(0.4, 0, 1, 1); 
+     border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    -webkit-border-radius: 0.5em;
+
+    transition: height 0.6s cubic-bezier(0.4, 0, 1, 1);
+    -o-transition: height 0.6s cubic-bezier(0.4, 0, 1, 1);
+    -moz-transition: height 0.6s cubic-bezier(0.4, 0, 1, 1);  
+    -webkit-transition: height 0.6s cubic-bezier(0.4, 0, 1, 1); 
 }
-#navigator table tr td:hover {
+td:hover {
     height: 128px;
     margin-top: 0px;
     background: rgba(3, 169, 224, 0.4);
     
-    border-radius: 0.5em;
-    -moz-border-radius: 0.5em;
-    -webkit-border-radius: 0.5em;
+    transition: background 0.5s cubic-bezier(0.4, 0, 1, 1);
+    -o-transition: background 0.5s cubic-bezier(0.4, 0, 1, 1);
+    -moz-transition: background 0.5s cubic-bezier(0.4, 0, 1, 1);
+    -webkit-transition: background 0.5s cubic-bezier(0.4, 0, 1, 1);
 }
-#navigator table tr td a {
+.nav {
     color: #fff;
     text-decoration: none;
 
-    transition: text-shadow 0.5s ease-in-out;
-    -o-transition: text-shadow 0.5s ease-in-out;
-    -moz-transition: text-shadow 0.5s ease-in-out;
-    -webkit-transition: text-shadow 0.5s ease-in-out;
+    transition: text-shadow 0.4s ease-in-out;
+    -o-transition: text-shadow 0.4s ease-in-out;
+    -moz-transition: text-shadow 0.4s ease-in-out;
+    -webkit-transition: text-shadow 0.4s ease-in-out;
 }
-#navigator table  tr td a:hover {
+.nav:hover {
     text-shadow: 0px 2px 13px black;
 }
-#navigator table tr td a span {
+span {
     font-family: "YueYuan";
 }	
-
-body {
-    background-color: #fafad2;
-}

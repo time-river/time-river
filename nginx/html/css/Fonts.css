@@ -1,0 +1,21 @@
+/***************************************
+ * fonts
+ * YueYuan from http://www.makefont.com/font.html?MFYueYuan_Noncommercial_Regular 
+ ***************************************/
+@charset "utf-8";
+@font-face {
+  font-family: "LTCircular";
+  src: url("../fonts/circularstd-bold.otf");
+}
+@font-face {
+  font-family: "YueYuan";
+  src: url("../fonts/YueYuan-Regular.otf");
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/open-sans/OpenSans-Regular.ttf");
+}
+@font-face {
+  font-family: "Item"
+  src: url(../fonts/itim/fonts/Itim-Regular.ttf");
+}

@@ -1,0 +1,30 @@
+/*
+ * body {
+ *   position: relative;
+ *     min-height: 100%;
+ *       height: auto !important;
+ *         height: 100%;
+ *
+ *           margin: 0;
+ *             padding: 0;
+ *
+ *               color: black;
+ *                 font-family: 'Microsoft Yahei', sans-serif;
+ *                   background-color: #fff;
+ *  background-color: #c1e8fa;
+  background-color: #dfe1e8;
+   background-color: #dae3e7; 
+  */
+.emoji {
+    width: 18px; 
+    height: 18px;
+}
+#image {
+    float: right;
+    width: 300px;
+    height: 405px;
+}
+.img-me {
+    width: 300px;
+    height: 300px;
+}

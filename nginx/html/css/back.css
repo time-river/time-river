@@ -1,0 +1,123 @@
+/**************************************
+ * Positioning 定位
+ * Box model   盒模型
+ * Typographic 
+ * Visual
+ ***************************************/
+
+@charset "utf-8";
+body {
+  padding-top: 80px;
+  background-color: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+.navbar {
+   padding: 8px;
+   font-family: "YueYuan";
+   font-size: 16px;
+   -webkit-transition: background .8s ease-out, padding .8s ease-out;
+      -moz-transition: background .8s ease-out, padding .8s ease-out;
+        -o-transition: background .8s ease-out, padding .8s ease-out;
+            transition: background .8s ease-out, padding .8s ease-out;
+}
+.navbar-pad-original {
+  padding: 0px;
+}
+.navbar-nav > li {
+  width: 90px;
+  text-align: center;
+
+  -webkit-border-radius: 0.8em;
+     -moz-border-radius: 0.8em;
+          border-radius: 0.8em;
+
+  -webkit-transition: background-color 0.4s ease-in-out;
+     -moz-transition: background-color 0.4s ease-in-out;
+       -o-transition: background-color 0.4s ease-in-out;
+          transition: background-color 0.4s ease-in-out;
+}
+.navbar-inverse
+.navbar-nav > li > a {
+  color: #fff;
+}
+.navbar-inverse
+.navbar-brand {
+  color: #fff;
+}
+.navbar-nav > li:hover {
+  background-color: rgba(3, 169, 224, 0.4);
+}
+#logo {
+  position: relative;
+  float: left;
+  width: 30px;
+  height: 30px;
+  margin-left: 4px;
+  margin-top: -5px;
+  -webkit-border-radius: 50%;
+     -moz-border-radius: 50%;
+          border-radius: 50%;
+  -webkit-box-shadow: 0px 0px 2px 3px rgba(193, 232, 250, 0.25), 0px 0px 10px 8px rgba(51, 51, 51, 0.7);
+     -moz-box-shadow: 0px 0px 2px 3px rgba(193, 232, 250, 0.25), 0px 0px 10px 8px rgba(51, 51, 51, 0.7);
+          box-shadow: 0px 0px 2px 3px rgba(193, 232, 250, 0.25), 0px 0px 10px 8px rgba(51, 51, 51, 0.7);
+  -webkit-transition: all 0.8s ease-in-out;
+     -moz-transition: all 0.8s ease-in-out;
+       -o-transition: all 0.8s ease-in-out;
+           transition: all 0.8s ease-in-out;
+}
+#artwork:hover img {
+  -webkit-box-shadow: 0px 0px 2px 3px rgba(193, 232, 250, 0.25), 0px 0px 10px 8px rgba(225, 225, 225, 0.7);
+     -moz-box-shadow: 0px 0px 2px 3px rgba(193, 232, 250, 0.25), 0px 0px 10px 8px rgba(225, 225, 225, 0.7);
+          box-shadow: 0px 0px 2px 3px rgba(193, 232, 250, 0.25), 0px 0px 10px 8px rgba(225, 225, 225, 0.7);
+}
+#footer {
+  display: flex;
+  z-index: 100;
+  height: 120px;
+  background-color: #222;
+  border: 0 solid #080808;
+  border-top-width: 1px;
+  margin-top: 50px;
+}
+#footer > .container {
+  padding: 20px;
+}
+#footer a {
+  color: #ccc;
+}
+#footer a:hover {
+  color: #fff;
+  margin-left: -2px;
+  text-decoration: none;
+}
+#Github {
+  width: 14px;
+  height: 14px;
+}
+#copyright {
+  color: #666;
+}
+#masthead {
+  min-height: 250px;
+}
+#masthead h1 {
+  font-size: 30px;
+  line-height: 1;
+  padding-top: 20px;
+}
+#masthead .well {
+  margin-top: 8%;
+  background-color: #eff4ff;
+}
+@media screen and (min-width: 768px) {
+  #masthead h1 {
+    font-size: 50px;
+  }
+}
+.metro {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+#search-box {
+  margin-bottom: 20px;
+}
