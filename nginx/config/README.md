@@ -51,7 +51,7 @@
 > --add-module=../ngx_http_google_filter_module \
 > --add-module=../ngx_http_substitutions_filter_module
 
-说明:
+注:
 包含debian 32位安装nginx后所有的编译选项(#nginx -V查看)。
 改变了一些设置:
 --error-log-path
@@ -61,7 +61,7 @@ ngx_http_google_filter_module
 ngx_http_substitutions_filter_module
 用于开启google镜像.
 (其它添加的model,忘了是不是原有的...)
-帮助:
+          相关模块下载可在github上搜索到
 编译过程遇到任何问题请Google
 ```
 
@@ -72,27 +72,3 @@ ssl身份验证、强制ssl加密连接(通过80端口重定向)
 反向代理、反向代理性能调优:缓冲、缓存、压缩
 mail服务器(待配置)
 ```
-
-#####参考网址
->[How to force or redirect to SSL in nginx?](http://serverfault.com/questions/250476/how-to-force-or-redirect-to-ssl-in-nginx)
->[Converting rewrite rules](http://nginx.org/en/docs/http/converting_rewrite_rules.html)
->[NGINX 配置 SSL 证书 + 搭建 HTTPS 网站教程](https://s.how/nginx-ssl/)  
->[Certificate Installation: NGINX](https://support.comodo.com/index.php?/Default/Knowledgebase/Article/View/789/37/)
-
-####一些遇到的错误
->[Unknown error nginx](http://stackoverflow.com/questions/17241554/unknown-error-nginx)
-
-####拓展阅读
->DNS域名解析
->>[域名解析中A记录、CNAME、MX记录、NS记录的区别和联系](http://blog.csdn.net/crazw/article/details/8986581)
->>[ DNS解析过程详解](http://blog.csdn.net/meimingming/article/details/9038223)
->>[What are the types of DNS records?](http://help.slamdot.com/idx/0/057/What-are-the-types-of-DNS-records)
->>应用:二级域名的使用
-
->ssl证书
->>[https://leonax.net/p/7522/https-certificate-introduction/](https://leonax.net/p/7522/https-certificate-introduction/)
->>[]()
->>[]()
-
->正向与反向代理
->>[]()
