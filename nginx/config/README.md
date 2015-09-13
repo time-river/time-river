@@ -79,3 +79,27 @@ mail服务器(待配置)
 >[NGINX 配置 SSL 证书 + 搭建 HTTPS 网站教程](https://s.how/nginx-ssl/)  
 >[Certificate Installation: NGINX](https://support.comodo.com/index.php?/Default/Knowledgebase/Article/View/789/37/)
 
+####一些遇到的错误
+>[Unknown error nginx](http://stackoverflow.com/questions/17241554/unknown-error-nginx)
+
+####拓展阅读
+>DNS域名解析
+>>[域名解析中A记录、CNAME、MX记录、NS记录的区别和联系](http://blog.csdn.net/crazw/article/details/8986581)  
+>>[ DNS解析过程详解](http://blog.csdn.net/meimingming/article/details/9038223)  
+>>[What are the types of DNS records?](http://help.slamdot.com/idx/0/057/What-are-the-types-of-DNS-records)  
+>>应用:二级域名的使用
+
+>ssl证书
+>>[HTTPS 证书简介](https://leonax.net/p/7522/https-certificate-introduction/)  
+>>[Linux的加密认证功能以及openssl详解](http://lanlian.blog.51cto.com/6790106/1281720)  
+>>[加密、解密及OpenSSL 详解](http://freeloda.blog.51cto.com/2033581/1216176)  
+>>[中间人攻击](https://zh.wikipedia.org/zh/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB)
+
+>正向代理、反向代理、透明代理
+>>[代理服务器](https://zh.wikipedia.org/wiki/%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8)  
+>>[正向代理、反向代理、透明代理](http://github.thinkingbar.com/reverseProxy/)  
+>>[Squid中文权威指南](http://home.arcor.de/pangj/squid/)(注:squid--正向代理中的战斗机)  
+>>[反向代理](https://zh.wikipedia.org/wiki/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86)
+
+>正则表达式
+>>[正则表达式](https://zh.wikipedia.org/wiki/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F)
