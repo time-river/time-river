@@ -89,7 +89,7 @@ mail服务器(待配置)
 ####遇到的问题
 >重定向至反向代理的站点: `proxy_redirect`设置问题  
 >error404: `proyx_pass`后加一`/`  
->移动设备重定向网址(wikipedia访问问题):[区分PC手机访问不同页面地址](http://www.brafox.com/post/2015/server/%E5%8C%BA%E5%88%86PC%E6%89%8B%E6%9C%BA%E8%AE%BF%E9%97%AE%E4%B8%8D%E5%90%8C%E9%A1%B5%E9%9D%A2%E5%9C%B0%E5%9D%80.html)  
+>移动设备之重定向(wikipedia访问问题):[区分PC手机访问不同页面地址](http://www.brafox.com/post/2015/server/%E5%8C%BA%E5%88%86PC%E6%89%8B%E6%9C%BA%E8%AE%BF%E9%97%AE%E4%B8%8D%E5%90%8C%E9%A1%B5%E9%9D%A2%E5%9C%B0%E5%9D%80.html)  
 >Nginx之set
 
 ####拓展阅读
@@ -107,7 +107,7 @@ mail服务器(待配置)
 
 >正向代理、反向代理、透明代理
 >>[代理服务器](https://zh.wikipedia.org/wiki/%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8)  
->>[正向代理、反向代理、透明代理](http://github.thinkingbar.com/reverseProxy/)  
+>>[正向代理、反向代理、透明代理](http:Nginx限制搜索引擎爬虫频率、禁止屏蔽网络爬虫配置示例//github.thinkingbar.com/reverseProxy/)  
 >>[Squid中文权威指南](http://home.arcor.de/pangj/squid/)(注:squid--正向代理中的战斗机)  
 >>[反向代理](https://zh.wikipedia.org/wiki/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86)
 
@@ -116,5 +116,9 @@ mail服务器(待配置)
 
 >Http Header
 >>[List of HTTP header fields](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields)  
+
+>Robots
+>>[robots.txt](https://zh.wikipedia.org/wiki/Robots.txt)  
+>>[Nginx限制搜索引擎爬虫频率、禁止屏蔽网络爬虫配置示例](http://www.jb51.net/article/52569.htm)
 
 #####该内容遵循[署名(BY)-非商业性(NC)-相同方式共享(SA)协议](https://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.zh)
