@@ -121,4 +121,7 @@ mail服务器(待配置)
 >>[robots.txt](https://zh.wikipedia.org/wiki/Robots.txt)  
 >>[Nginx限制搜索引擎爬虫频率、禁止屏蔽网络爬虫配置示例](http://www.jb51.net/article/52569.htm)
 
+>用来黑人的
+>>[openresty+lua在反向代理服务中的玩法](http://drops.wooyun.org/tips/6403)
+
 #####该内容遵循[署名(BY)-非商业性(NC)-相同方式共享(SA)协议](https://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.zh)
