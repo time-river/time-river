@@ -80,7 +80,17 @@ mail服务器(待配置)
 >[Certificate Installation: NGINX](https://support.comodo.com/index.php?/Default/Knowledgebase/Article/View/789/37/)
 
 ####一些遇到的错误
->[Unknown error nginx](http://stackoverflow.com/questions/17241554/unknown-error-nginx)
+>[Unknown error nginx](http://stackoverflow.com/questions/17241554/unknown-error-nginx)  
+>["proxy_set_header" directive is not allowed here](http://serverfault.com/questions/506972/nginx-why-i-cant-put-proxy-set-header-inside-an-if-clause)  
+>["sub_filter" directive is duplicate in ...](http://serverfault.com/questions/281741/multiple-sub-filter-rules-for-a-reverse-proxy-on-nginx)  
+----注:两种方案:  
+--------`Nginx 1.9.4 *) Feature: multiple "sub_filter" directives can be used simultaneously.`<br> --------[ngx_http_substitutions_filter_module](https://github.com/yaoweibin/ngx_http_substitutions_filter_module)
+
+####遇到的问题
+>重定向至反向代理的站点: `proxy_redirect`设置问题  
+>error404: `proyx_pass`后加一`/`  
+>移动设备重定向网址(wikipedia访问问题):[区分PC手机访问不同页面地址](http://www.brafox.com/post/2015/server/%E5%8C%BA%E5%88%86PC%E6%89%8B%E6%9C%BA%E8%AE%BF%E9%97%AE%E4%B8%8D%E5%90%8C%E9%A1%B5%E9%9D%A2%E5%9C%B0%E5%9D%80.html)  
+>Nginx之set
 
 ####拓展阅读
 >DNS域名解析
@@ -103,5 +113,8 @@ mail服务器(待配置)
 
 >正则表达式
 >>[正则表达式](https://zh.wikipedia.org/wiki/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F)
+
+>Http Header
+>>[List of HTTP header fields](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields)  
 
 #####该内容遵循[署名(BY)-非商业性(NC)-相同方式共享(SA)协议](https://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.zh)
