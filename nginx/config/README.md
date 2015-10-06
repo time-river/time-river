@@ -107,7 +107,7 @@ mail服务器(待配置)
 
 >正向代理、反向代理、透明代理
 >>[代理服务器](https://zh.wikipedia.org/wiki/%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8)  
->>[正向代理、反向代理、透明代理](http:Nginx限制搜索引擎爬虫频率、禁止屏蔽网络爬虫配置示例//github.thinkingbar.com/reverseProxy/)  
+>>[正向代理、反向代理、透明代理](http://github.thinkingbar.com/reverseProxy/)  
 >>[Squid中文权威指南](http://home.arcor.de/pangj/squid/)(注:squid--正向代理中的战斗机)  
 >>[反向代理](https://zh.wikipedia.org/wiki/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86)
 
