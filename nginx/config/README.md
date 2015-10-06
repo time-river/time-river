@@ -59,8 +59,11 @@
 额外添加了一些module:
 ngx_http_google_filter_module
 ngx_http_substitutions_filter_module
-用于开启google镜像.
-(其它添加的model,忘了是不是原有的...)
+用于开启google镜像以及多次替换.
+ngxnginx-upstream-fair
+增强了Nginx提供的round-robin 负载均衡算法
+nginx-dav-ext-module
+依赖关系
           相关模块下载可在github上搜索到
 编译过程遇到任何问题请Google
 ```
