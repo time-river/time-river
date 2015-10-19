@@ -66,6 +66,7 @@ nginx-dav-ext-module
 依赖关系
           相关模块下载可在github上搜索到
 编译过程遇到任何问题请Google
+在docker中编译时候, --with-ld-opt='-Wl,-z,relro -Wl,--as-needed' 报错, 无法解决, 安装nginx后再次编译成功
 ```
 
 ####配置
