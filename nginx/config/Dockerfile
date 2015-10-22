@@ -21,7 +21,7 @@ RUN set -x \
     && mkdir -p /usr/scr/nginx /usr/src/openssl /usr/src/pcre /usr/src/zlib \
        /usr/src/nginx-dav-ext-module /usr/src/nginx/nginx-upstream-fair /usr/src/ngx_http_substitutions_filter_module /usr/src/ngx_http_google_filter_module \
     && curl -SL "http://nginx.org/download/$NGINX_VERSION.tar.gz" -o nginx.tar.gz \
-    && curl -SL "http://openssl.org/source/$OPENSSL_VERSION.tar.gz" -o openssl.tar.gz \
+    && curl -SL "https://openssl.org/source/$OPENSSL_VERSION.tar.gz" -o openssl.tar.gz \
     && curl -SL "ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/$PCRE_VERSION.tar.bz2"  -o pcre.tar.bz2 \
     && curl -SL "http://zlib.net/$ZLIB_VERSION.tar.xz" -o zlib.tar.xz \
     && tar -xzC /usr/src/nginx --strip-components=1 -f nginx.tar.gz \
