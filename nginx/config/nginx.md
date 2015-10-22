@@ -1,3 +1,4 @@
+```
 #!/bin/sh
 ### BEGIN INIT INFO
 # Provides:          nginx
@@ -152,3 +153,4 @@ case "$1" in
 esac
 
 exit $RETVAL
+```
