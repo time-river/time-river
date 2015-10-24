@@ -18,22 +18,22 @@ RUN set -x \
     && buildDeps='ca-certificates libexpat1-dev libc6-dev dpkg-dev curl make gcc git g++' \
     && apt-get update && apt-get install -y $buildDeps --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
-    && mkdir -p /usr/scr/nginx /usr/src/openssl /usr/src/pcre /usr/src/zlib \
-       /usr/src/nginx-dav-ext-module /usr/src/nginx/nginx-upstream-fair /usr/src/ngx_http_substitutions_filter_module /usr/src/ngx_http_google_filter_module \
+    && mkdir -p /usr/scr/nginx/nginx /usr/src/nginx/openssl /usr/src/nginx/pcre /usr/src/nginx/zlib \
+       /usr/src/nginx/nginx-dav-ext-module /usr/src/nginx/nginx-upstream-fair /usr/src/nginx/ngx_http_substitutions_filter_module /usr/src/nginx/ngx_http_google_filter_module \
     && curl -SL "http://nginx.org/download/$NGINX_VERSION.tar.gz" -o nginx.tar.gz \
     && curl -SL "https://openssl.org/source/$OPENSSL_VERSION.tar.gz" -o openssl.tar.gz \
     && curl -SL "ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/$PCRE_VERSION.tar.bz2"  -o pcre.tar.bz2 \
     && curl -SL "http://zlib.net/$ZLIB_VERSION.tar.xz" -o zlib.tar.xz \
-    && tar -xzC /usr/src/nginx --strip-components=1 -f nginx.tar.gz \
-    && tar -xzC /usr/src/openssl --strip-components=1 -f openssl.tar.gz \
-    && tar -xjC /usr/src/pcre --strip-components=1 -f pcre.tar.bz2 \
-    && tar -xJC /usr/src/zlib --strip-components=1 -f zlib.tar.xz \
+    && tar -xzC /usr/src/nginx/nginx --strip-components=1 -f nginx.tar.gz \
+    && tar -xzC /usr/src/nginx/openssl --strip-components=1 -f openssl.tar.gz \
+    && tar -xjC /usr/src/nginx/pcre --strip-components=1 -f pcre.tar.bz2 \
+    && tar -xJC /usr/src/nginx/zlib --strip-components=1 -f zlib.tar.xz \
     && rm -rf nginx.tar.gz openssl.tar.gz pcre.tar.bz2 zlib.tar.xz \
-    && git clone https://github.com/arut/nginx-dav-ext-module /usr/src/nginx-dav-ext-module \
-    && git clone https://github.com/gnosek/nginx-upstream-fair /usr/src/nginx-upstream-fair \
-    && git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module /usr/src/ngx_http_substitutions_filter_module \
-    && git clone https://github.com/cuber/ngx_http_google_filter_module /usr/src/ngx_http_google_filter_module \
-    && cd /usr/src/nginx \
+    && git clone https://github.com/arut/nginx-dav-ext-module /usr/src/nginx/nginx-dav-ext-module \
+    && git clone https://github.com/gnosek/nginx-upstream-fair /usr/src/nginx/nginx-upstream-fair \
+    && git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module /usr/src/nginx/ngx_http_substitutions_filter_module \
+    && git clone https://github.com/cuber/ngx_http_google_filter_module /usr/src/nginx/ngx_http_google_filter_module \
+    && cd /usr/src/nginx/nginx \
     && ./configure \
        --prefix=/var/www \
        --sbin-path=/usr/sbin/nginx \
@@ -79,6 +79,7 @@ RUN set -x \
     && make -j$(nproc) \
     && make install \
     && cd / \
+    && rm -rf /usr/src/nginx \
     && openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048 \
 
 && apt-get purge -y --auto-remove $buildDeps
