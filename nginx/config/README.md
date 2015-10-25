@@ -1,6 +1,11 @@
 #Nginx
 ======
 
+##Introduction
+
+下面介绍的属于[nginx](https://github.com/time-river/time-river/tree/master/nginx/config/nginx)文件夹下的内容。  
+高级使用请点[这里](https://github.com/time-river/time-river/tree/master/nginx/config/docker)  
+
 ```
 参考书籍: 《精通Nginx》
           ISBN: 978-7-115-38141-5
@@ -74,7 +79,6 @@ nginx-dav-ext-module
 ssl身份验证、强制ssl加密连接(通过80端口重定向)
 多个server_name匹配
 反向代理、反向代理性能调优:缓冲、缓存、压缩
-mail服务器(待配置)
 ```
 
 ####参考网址
