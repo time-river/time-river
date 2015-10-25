@@ -2,15 +2,13 @@
 
 ####Introduction
 
-这是一个Nginx的Dockerfile。  
+这是一个Nginx的Dockerfile。使用它，可以很方便的建立Google镜像；经过简单的设置，还可以使用反向代理功能。  
 Nginx Version 1.8.0  
 额外添加的模块：  
-For full WebDAV support in NGINX:(nginx-dav-ext-module)[https://github.com/arut/nginx-dav-ext-module]  
-The Nginx fair proxy balancer enhances the standard round-robin load balancer provided
-with Nginx:(nginx-upstream-fair)[https://github.com/gnosek/nginx-upstream-fair]  
-Nginx_substitutions_filter is a filter module which can do both regular
-    expression and fixed string substitutions on response bodies:(ngx_http_substitutions_filter_module)[https://github.com/yaoweibin/ngx_http_substitutions_filter_module]  
-Makes google mirror much easier to deploy:(ngx_http_google_filter_module)[https://github.com/cuber/ngx_http_google_filter_module]  
+[nginx-dav-ext-module](https://github.com/arut/nginx-dav-ext-module)  
+[nginx-upstream-fair](https://github.com/gnosek/nginx-upstream-fair)  
+[ngx_http_substitutions_filter_module](https://github.com/yaoweibin/ngx_http_substitutions_filter_module)  
+[ngx_http_google_filter_module](https://github.com/cuber/ngx_http_google_filter_module)  
 相关编译参数如下：  
 ```
 >./configure \
@@ -61,12 +59,4 @@ Makes google mirror much easier to deploy:(ngx_http_google_filter_module)[https:
 
 通过该Dockerfile创建的image有4个卷挂载点：  
 `VOLUME ["/var/www", "/etc/nginx/conf.d", "/var/log/nginx", "/var/cache/nginx"]`  
-image中`/etc/nginx/nginx.conf`含有以下内容：  
-```
-user nginx;
-
-error_log /var/log/nginx/error.log warn;
-pid       /var/run/nginx.pid;
-
-include /etc/nginx/conf.d/nginx.conf;
-```
+查看image中`/etc/nginx/nginx.conf`内容请点[这里](https://github.com/time-river/time-river/blob/master/nginx/config/docker/nginx.conf)  
