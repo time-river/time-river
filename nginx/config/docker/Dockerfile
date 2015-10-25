@@ -79,11 +79,15 @@ RUN set -x \
     && make -j$(nproc) \
     && make install \
     && cd / \
-    && rm -rf /usr/src/nginx \
+    && rm -rf /usr/src/nginx /var/www/* /etc/nginx/* /var/log/nginx/* /var/cache/nginx/* \
     && openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048 \
     && apt-get purge -y --auto-remove $buildDeps
 
-RUN cd /etc/init.d && chown root:root nginx && chmod +x nginx
+RUN mkdir -p /etc/nginx/conf.d
+ADD nginx.conf /etc/nginx/
+COPY nginx /etc/init.d/
+WORKDIR /etc/init.d/
+RUN chown root:root nginx && chmod +x nginx
 
 VOLUME ["/var/www", "/etc/nginx/conf.d", "/var/log/nginx", "/var/cache/nginx"]
 
