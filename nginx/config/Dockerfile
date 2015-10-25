@@ -81,16 +81,12 @@ RUN set -x \
     && cd / \
     && rm -rf /usr/src/nginx \
     && openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048 \
+    && apt-get purge -y --auto-remove $buildDeps
 
-&& apt-get purge -y --auto-remove $buildDeps
-
-ADD nginx /etc/init.d/nginx
 RUN cd /etc/init.d && chown root:root nginx && chmod +x nginx
 
-RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 VOLUME ["/var/www", "/etc/nginx/conf.d", "/var/log/nginx", "/var/cache/nginx"]
 
-EXPOSE 80
-EXPOSE 443
+EXPOSE 80 443
 
-CMD ["nginx"]
+CMD ["nginx", "-g", "daemon off;"]
