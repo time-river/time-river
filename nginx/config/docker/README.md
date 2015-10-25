@@ -60,3 +60,4 @@ Nginx Version 1.8.0
 通过该Dockerfile创建的image有4个卷挂载点：  
 `VOLUME ["/var/www", "/etc/nginx/conf.d", "/var/log/nginx", "/var/cache/nginx"]`  
 查看image中`/etc/nginx/nginx.conf`内容请点[这里](https://github.com/time-river/time-river/blob/master/nginx/config/docker/nginx.conf)  
+[这里](https://github.com/time-river/time-river/blob/master/nginx/config/docker/conf.d/nginx.conf)是示范设置
