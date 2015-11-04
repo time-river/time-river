@@ -19,7 +19,6 @@ RUN set -x \
     && apt-get update && apt-get install -y $buildDeps --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir -p /usr/scr/nginx/nginx /usr/src/nginx/openssl /usr/src/nginx/pcre /usr/src/nginx/zlib \
-       /usr/src/nginx/nginx-dav-ext-module /usr/src/nginx/nginx-upstream-fair /usr/src/nginx/ngx_http_substitutions_filter_module /usr/src/nginx/ngx_http_google_filter_module \
     && curl -SL "http://nginx.org/download/$NGINX_VERSION.tar.gz" -o nginx.tar.gz \
     && curl -SL "https://openssl.org/source/$OPENSSL_VERSION.tar.gz" -o openssl.tar.gz \
     && curl -SL "ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/$PCRE_VERSION.tar.bz2"  -o pcre.tar.bz2 \
@@ -33,7 +32,7 @@ RUN set -x \
     && git clone https://github.com/gnosek/nginx-upstream-fair /usr/src/nginx/nginx-upstream-fair \
     && git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module /usr/src/nginx/ngx_http_substitutions_filter_module \
     && git clone https://github.com/cuber/ngx_http_google_filter_module /usr/src/nginx/ngx_http_google_filter_module \
-    && cd /usr/src/nginx/nginx \
+    && cd /usr/scr/nginx/nginx \
     && ./configure \
        --prefix=/var/www \
        --sbin-path=/usr/sbin/nginx \
