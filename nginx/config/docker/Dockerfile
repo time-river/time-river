@@ -32,7 +32,7 @@ RUN set -x \
     && git clone https://github.com/gnosek/nginx-upstream-fair /usr/src/nginx/nginx-upstream-fair \
     && git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module /usr/src/nginx/ngx_http_substitutions_filter_module \
     && git clone https://github.com/cuber/ngx_http_google_filter_module /usr/src/nginx/ngx_http_google_filter_module \
-    && cd /usr/scr/nginx/nginx \
+    && cd /usr/src/nginx/nginx \
     && ./configure \
        --prefix=/var/www \
        --sbin-path=/usr/sbin/nginx \
@@ -92,4 +92,4 @@ VOLUME ["/var/www", "/etc/nginx/conf.d", "/var/log/nginx", "/var/cache/nginx"]
 
 EXPOSE 80 443
 
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
