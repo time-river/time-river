@@ -19,7 +19,7 @@ RUN set -x \
     && buildDeps='ca-certificates libexpat1-dev libc6-dev dpkg-dev curl make gcc git g++' \
     && apt-get update && apt-get install -y $buildDeps --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
-    && mkdir -p /usr/scr/nginx/nginx /usr/src/nginx/openssl /usr/src/nginx/pcre /usr/src/nginx/zlib \
+    && mkdir -p /usr/src/nginx/nginx /usr/src/nginx/openssl /usr/src/nginx/pcre /usr/src/nginx/zlib \
     && curl -SL "http://nginx.org/download/$NGINX_VERSION.tar.gz" -o nginx.tar.gz \
     && curl -SL "https://openssl.org/source/$OPENSSL_VERSION.tar.gz" -o openssl.tar.gz \
     && curl -SL "ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/$PCRE_VERSION.tar.bz2"  -o pcre.tar.bz2 \
