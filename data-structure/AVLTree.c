@@ -10,18 +10,16 @@ typedef struct BSTNode{
 
 void EatLine(void);
 void Travel(BSTree tree);
-BSTree SearchBSTree(BSTree tree, int number);
-BSTree InsertBSTree(BSTree tree, int number, int *taller);
-BSTree DeleteBSTree(BSTree tree, int number, int *shorter);
+BSTree SearchBSTree(BSTree tree, int e);
+BSTree InsertBSTree(BSTree tree, int e, int *taller);
+BSTree DeleteBSTree(BSTree tree, int e, int *shorter);
 BSTree LeftBalance(BSTree tree);
 BSTree RightBalance(BSTree tree);
 BSTree LeftRotation(BSTree tree);
 BSTree RightRotation(BSTree tree);
-BSTree LeftRightRotation(BSTree tree);
-BSTree RightLeftRotation(BSTree tree);
 
 int main(void){
-    int number;
+    int e;
     char ch;
     int taller = 0, shorter = 0;
     BSTree tree = NULL;
@@ -34,29 +32,25 @@ int main(void){
         ch = getchar();
         switch (ch){
             case '1':
-                puts("Input the number");
-                scanf("%d", &number);
-                if(SearchBSTree(tree, number) == NULL)
+                puts("Input the e");
+                scanf("%d", &e);
+                if(SearchBSTree(tree, e) == NULL)
                     puts("not exist");
                 else{
                     puts("exist");
                 }
                 break;
             case '2':
-                puts("Input the number of insertion");
-                for(int i = 0; i < 11; i++) {
-                    int data[11] = {20, 10, 5, 30, 40, 15, 25, 23, 50, 1, 3};
-                    tree = InsertBSTree(tree, data[i], &taller);
-                }
-                //scanf("%d", &number);
-                //tree = InsertBSTree(tree, number, &taller);
+                puts("Input the e of insertion");
+                scanf("%d", &e);
+                tree = InsertBSTree(tree, e, &taller);
                 puts("Insert sucessfully");
                 Travel(tree);
                 break;
             case '3':
-                puts("Input the number of deletion");
-                scanf("%d", &number);
-                tree = DeleteBSTree(tree, number, &shorter);
+                puts("Input the e of deletion");
+                scanf("%d", &e);
+                tree = DeleteBSTree(tree, e, &shorter);
                 puts("Delete sucessfully");
                 Travel(tree);
                 break;
@@ -89,30 +83,30 @@ void Travel(BSTree tree){
     return;
 }
 
-BSTree SearchBSTree(BSTree tree, int number){
+BSTree SearchBSTree(BSTree tree, int e){
     while(tree != NULL){
-        if(tree->data == number)
+        if(tree->data == e)
             return tree;
-        else if(tree->data > number)
+        else if(tree->data > e)
             tree = tree->left_child;
         else
             tree = tree->right_child;
     }
     return NULL;
 }
-BSTree InsertBSTree(BSTree tree, int number, int *taller){
+BSTree InsertBSTree(BSTree tree, int e, int *taller){
     if(tree == NULL){
         tree = (BSTree)malloc(sizeof(BSTNode));
         if (NULL == tree)
             exit(-1);
-        tree->data = number;
+        tree->data = e;
         tree->bf = 0;
         tree->left_child = tree->right_child = NULL;
         *taller = 1;
         return tree;
     }
-    else if(tree->data > number){ // left, insert
-        tree->left_child = InsertBSTree(tree->left_child, number, taller);
+    else if(tree->data > e){ // left, insert
+        tree->left_child = InsertBSTree(tree->left_child, e, taller);
         if(*taller == 1){
             switch(tree->bf){
                 case 1: // right was high, now, tree is balanced
@@ -130,8 +124,8 @@ BSTree InsertBSTree(BSTree tree, int number, int *taller){
             }
         }
     }
-    else if(tree->data < number){
-        tree->right_child = InsertBSTree(tree->right_child, number, taller);
+    else if(tree->data < e){
+        tree->right_child = InsertBSTree(tree->right_child, e, taller);
         if(*taller == 1){
             switch(tree->bf){
                 case 1: //right was high, tree needs rotation now
@@ -235,7 +229,7 @@ BSTree RightRotation(BSTree tree){
     return lc;
 }
 
-BSTree DeleteBSTree(BSTree tree, int number, int *shorter){
+BSTree DeleteBSTree(BSTree tree, int e, int *shorter){
     BSTree tmp_tree;
     int tmp_bf;
     if(NULL == tree){
@@ -243,7 +237,7 @@ BSTree DeleteBSTree(BSTree tree, int number, int *shorter){
         *shorter = 0;
         return tree;
     }
-    else if(number == tree->data){
+    else if(e == tree->data){
         if(tree->left_child == NULL){
             *shorter = 1;
             tmp_tree = tree->right_child;
@@ -314,8 +308,8 @@ BSTree DeleteBSTree(BSTree tree, int number, int *shorter){
             }
         }
     }
-    else if(number < tree->data){
-        tree->left_child = DeleteBSTree(tree->left_child, number, shorter);
+    else if(e < tree->data){
+        tree->left_child = DeleteBSTree(tree->left_child, e, shorter);
         if(*shorter){
             switch(tree->bf){
                 case 1:
@@ -337,8 +331,8 @@ BSTree DeleteBSTree(BSTree tree, int number, int *shorter){
             }
         }
     }
-    else{ //number > tree->data
-        tree->right_child = DeleteBSTree(tree->right_child, number, shorter);
+    else{ //e > tree->data
+        tree->right_child = DeleteBSTree(tree->right_child, e, shorter);
         if(*shorter){
             switch(tree->bf){
                 case 1:
@@ -348,9 +342,9 @@ BSTree DeleteBSTree(BSTree tree, int number, int *shorter){
                 case -1:
                     tmp_bf = tree->bf;
                     tree = LeftBalance(tree);
-                    else
                     if(tmp_bf == tree->bf || tmp_bf == -tree->bf)
                         *shorter = 0;
+		    else
                         *shorter = 1;
                     break;
                 case 0:
