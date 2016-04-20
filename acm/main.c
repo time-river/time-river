@@ -4,9 +4,26 @@
 #define True 1
 
 // six
+typedef struct{
+    int bool;
+    long long num;
+    long long parter[4];
+}prime;
+
 int main(void){
+    long long num[9], mid[9];
+    int i;
+    prime primes[9];
+    while(scanf("%lld %lld %lld %lld %lld %lld %lld %lld %lld", 
+                num, num+1, num+2, num+3, num+4, num+5, num+6, num+7, num+8) != EOF){
+        for(i = 0; i < 9; i++){
+            get_prime(num, i, primes);
+        }
+        
+    }
     return 0;
 }
+
 /*
 // seven
 int compare(const void *x, const void *y){
@@ -15,24 +32,38 @@ int compare(const void *x, const void *y){
 
 int main(void){
     int n, k, i, last, m, tag;
+    long long int sum;
     while(scanf("%d %d", &n, &k) != EOF){
+        sum = 0;
         m = k - 1;
-        long long num[n], tmp, sum = 0;
+        tag = 0;
+        long long num[n], tmp;
         for(i = 0; i < n; i++)
             scanf("%lld", num+i);
-        qsort(num, n, sizeof(long long), compare); //从大到小排序
-        tag = 0;
-        last = n % m;
-        if (last != 1){
-            for(n-=last, i = 1; i < last; i++)
-                num[n] += num[n+i];
-            sum += num[n];
-            n += 1;
-            tag = 1;
+        qsort(num, n, sizeof(long long), compare); // sort
+        if (n <= k){
+            for(i = 0; i < n; i++)
+                sum += num[i];
+            n = 1;
+        }
+        else{
+            last = n % m;
+            if (last && last != 1){ // this if's goal: after this operation, n % m == 1
+                for(n=n-last+1, i = 0; i < (last-1); i++)
+                    num[n-1] += num[n+i];
+                sum += num[n-1];
+                tag = 1;
+            }
+            else if(m != 1 && !last){
+                for(n=n-m+1, i = 0; i < (m-1); i++)
+                    num[n-1] += num[n+i];
+                sum += num[n-1];
+                tag = 1;
+            }
         }
         while(n > 1){
             if (tag){
-                for(i = 0; i < n; i++) //插入排序
+                for(i = 0; i < n; i++) // insertion sort
                     if (num[i] < num[n-1]){
                         tmp = num[n-1];
                         for(last = n-1; last != i; last--)
@@ -42,14 +73,11 @@ int main(void){
                     }
                 tag = 0;
             }
-            for(i=0;i<n;i++)
-                printf("%lld\n", num[i]);
             for(n-=m, i=0; i < m; i++){
                 num[n-1] += num[n+i];
                 tag = 1;
             }
             sum += num[n-1];
-            printf("n: %d, sum: %lld\n", n, sum);
         }
         printf("%lld\n", sum);
     }
