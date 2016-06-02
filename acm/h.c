@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define MOD 1000000007
-
+#include <time.h>
 typedef struct {
     long long int **array;
     int params[2];
@@ -30,6 +30,11 @@ int main(void){
         putchar('\n');
     }*/
     long long int l, r, i, before_start_sum, end_sum, result;
+    /*l = 0, r = 1;
+    long long int start, end;
+    for(int p=0; p < 10; p++){
+        r*=10;
+        start = clock();*/
     while(scanf("%lld %lld", &l, &r) != EOF){
         result = 0;
         if(r < 3){ // the first three item is 1, 1, 1
@@ -44,7 +49,7 @@ int main(void){
                     before_start_sum +=1;
             }
             else{
-                before_start_sum = fast_matrices(l-3); // frequency == l-2
+                before_start_sum = fast_matrices(l-3); // frequency == l-3
             }
             //printf("before_start_sum: %lld-------------------\n", before_start_sum);
             end_sum = fast_matrices(r-2); // frequency == r-2
@@ -53,6 +58,8 @@ int main(void){
                 result = (end_sum + MOD) - before_start_sum;
         }
         printf("%lld\n", result);
+        //end = clock();
+        //printf("end-start: %lld\n", end-start);
     }
     return 0;
 }

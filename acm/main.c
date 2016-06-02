@@ -1,18 +1,18 @@
 #include <stdio.h>
-#include <string.h>
+/*#include <string.h>
 #include <stdlib.h>
 #define True 1
-
+*/
+#include <time.h>
 #define MOD 1000000007
 
-/*
 void tribonacci(long long int l, long long int r){
     long long int x=1, y=1, z=1, tmp;
     long long int result=0;
     long long int i;
 
     if (l < 3){
-        for(i = l; i < 3; i++)
+        for(i = l; i <= r && i < 3; i++)
             result += 1;
     }
     for(i = 3; i <= r; i++){ // the i number is z
@@ -26,93 +26,18 @@ void tribonacci(long long int l, long long int r){
     printf("%lld\n", result);
     return;
 }
-*/
-
-void multiply(long long int x[][3], long long int **y){
-    // martix x * y; m is vertical, 1 is horizontal
-    int i, j, k;
-    int m = 3, n = 3;
-    long long int z[m][n];
-    for (i = 0; i < m; i++)
-        for (j = 0; j < m; j++){
-            z[i][j] = 0;
-            for (k = 0; k < n; k++)
-                z[i][j] += x[i][k] * y[k][j];
-            z[i][j] %= MOD;
-        }
-    for(i = 0; i < m; i++){
-        for(j = 0; j < n; j++){
-            y[i][j] = z[i][j];
-            printf("z[%d][%d]%lld ", i, j, z[i][j]);
-        }
-        putchar('\n');
-    }
-    putchar('\n');
-    return;
-}
-
-void sum(long long int x[][3], long long int y[][3]){
-    int i, j;
-    for(i = 0; i < 3; i++)
-        for(j = 0; j < 3; j++){
-            y[i][j] += x[i][j];
-            y[i][j] %= MOD;
-        }
-}
-
-long long int ** init(long long int array[][3]){
-    long long int ** martix = (long long int **)malloc(3 * sizeof(long long int *));
-    if (martix == NULL)
-        exit(-1);
-    int i, j;
-    for (i = 0; i < 3; i++){
-        martix[i] = (long long int *)malloc(3 * sizeof(long long int));
-        if (martix[i] == NULL)
-            exit(-1);
-        for (j = 0; j < 3; j++)
-            martix[i][j] = array[i][j];
-    }
-    return martix;
-}
-    
-void tribonacci(long long int l, long long int r){
-    long long int ones[3][3] = {
-        {1, 1, 1},
-        {1, 0, 0},
-        {0, 1, 0}},
-         ori[3][3] = {
-             {1, 0, 0},
-             {1, 0, 0},
-             {1, 0, 0}},
-         zeros[3][3] = {
-             {0, 0, 0},
-             {0, 0, 0},
-             {0, 0, 0}};
-    long long int ** tri = init(ori), ** array = init(zeros);
-
-    long long int start = 0, i, result = 0;
-    if (l < 3){
-        for(i = 0;i < l; i++)
-            start += 1;
-    }
-    else{
-        for(i = 3; i < l; i++){
-            multiply(ones, array);
-        multiply(ones, tri);
-    }
-    for(; i < r; i++){
-        sum(array, zero);
-        multiply(ones, array);
-    }
-    multiply(zero, tri);
-    result = tri[0][0] % MOD;
-    printf("%lld\n", result);
-}
-
 int main(void){
-    long long int l, r;
-    while(scanf("%lld %lld", &l, &r) != EOF){
+    long long int l=0, r=1;
+    long long int start, end;
+    /*while(scanf("%lld %lld", &l, &r) != EOF){
         tribonacci(l, r);
+    }*/
+    for(int i = 0; i < 10; i++){
+        r *= 10;
+        start = clock();
+        tribonacci(l, r);
+        end = clock();
+        printf("end-start: %lld\n", end-start);
     }
     return 0;
 }
