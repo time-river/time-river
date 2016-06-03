@@ -31,7 +31,10 @@ elements = []
     puts "ading #{i} to the list."
     # pushes the i variable on the *end* of the list
     elements.push(i)
+    elements << i * 10
 end
 
 # now we can print them out too
 elements.each {|i| puts "Element was: #{i}"}
+
+# Find the Ruby documentation on arrays and read about them. What other operations can you do besides the push function? Try <<, which is the same as push but is an operator. fruits << x is the same as fruits.push(x).
