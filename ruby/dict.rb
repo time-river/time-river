@@ -19,21 +19,21 @@ module Dict
     def Dict.get_bucket(aDict, key)
         # Given a key, find the bucket where it would go.
         bucket_id = Dict.hash_key(aDict, key)
-        return aDict[bucket_id]
+        return aDict[bucket_id] # 返回一个列表
     end
 
     def Dict.get_slot(aDict, key, default=nil)
         # Returns the index, key, and value of a slot found in a bucket.
         bucket = Dict.get_bucket(aDict, key)
         
-        bucket.each_with_index do |kv, i|
+        bucket.each_with_index do |kv, i| # |[key, value], index|
             k, v = kv
             if key == k
-                return i, k, v
+                return i, k, v # 存在，返回索引值
             end
         end
         
-        return -1, key, default
+        return -1, key, default # 不存在，返回 -1
     end
 
     def Dict.get(aDict, key, default=nil)
@@ -46,7 +46,7 @@ module Dict
         # Sets the key to the value, replacing any existing value.
         bucket = Dict.get_bucket(aDict, key)
         i, k, v = Dict.get_slot(aDict, key)
-
+        
         if i >= 0
             bucket[i] = [key, value]
         else
@@ -76,3 +76,10 @@ module Dict
         end
     end
 end
+
+# [11,22,31,224,44].each_with_index
+# [11,22,31,224,44].each.with_index
+# [11,22,31,224,44].each_index
+# [11,22,31,224,44].index
+# [11,22,31,224,44].each
+# [11,22,31,224,44].delete_at(0)
