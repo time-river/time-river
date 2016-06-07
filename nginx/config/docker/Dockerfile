@@ -1,96 +1,129 @@
-FROM debian:jessie
-MAINTAINER time-river "feather12315@live.com"
+FROM alpine:3.3
 
-ENV LANG C.UTF-8
+MAINTAINER NGINX Docker Maintainers "docker-maint@nginx.com"
 
-# add our user and group first to make sure their IDs get assigned consistently.
-RUN groupadd -r nginx && useradd -r -g nginx nginx
+ENV NGINX_VERSION 1.10.1
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-	libexpat1 \
-    && rm -rf /var/lib/apt/lists/*
+ENV GPG_KEYS B0F4253373F8F6F510D42178520A9993A1C052F8
+ENV CONFIG "\
+	--prefix=/etc/nginx \
+	--sbin-path=/usr/sbin/nginx \
+	--modules-path=/usr/lib/nginx/modules \
+	--conf-path=/etc/nginx/nginx.conf \
+	--error-log-path=/var/log/nginx/error.log \
+	--http-log-path=/var/log/nginx/access.log \
+	--pid-path=/var/run/nginx.pid \
+	--lock-path=/var/run/nginx.lock \
+	--http-client-body-temp-path=/var/cache/nginx/client_temp \
+	--http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+	--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+	--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+	--http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+	--user=nginx \
+	--group=nginx \
+	--with-http_ssl_module \
+	--with-http_realip_module \
+	--with-http_addition_module \
+	--with-http_sub_module \
+	--with-http_dav_module \
+	--with-http_flv_module \
+	--with-http_mp4_module \
+	--with-http_gunzip_module \
+	--with-http_gzip_static_module \
+	--with-http_random_index_module \
+	--with-http_secure_link_module \
+	--with-http_stub_status_module \
+	--with-http_auth_request_module \
+	--with-http_xslt_module=dynamic \
+	--with-http_image_filter_module=dynamic \
+	--with-http_geoip_module=dynamic \
+	--with-http_perl_module=dynamic \
+	--with-threads \
+	--with-stream \
+	--with-stream_ssl_module \
+	--with-http_slice_module \
+	--with-mail \
+	--with-mail_ssl_module \
+	--with-file-aio \
+	--with-http_v2_module \
+	--with-ipv6 \
+    --with-pcre-jit \
+    --add-module=../ngx_http_substitutions_filter_module \
+    --add-dynamic-module=../ngx_http_google_filter_module \
+	"
 
-ENV NGINX_VERSION   nginx-1.8.0
-ENV OPENSSL_VERSION openssl-1.0.2d
-ENV PCRE_VERSION    pcre-8.37
-ENV ZLIB_VERSION    zlib-1.2.8
+RUN \
+	addgroup -S nginx \
+	&& adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx \
+	&& apk add --no-cache --virtual .build-deps \
+		gcc \
+		libc-dev \
+		make \
+		openssl-dev \
+		pcre-dev \
+		zlib-dev \
+		linux-headers \
+		curl \
+		gnupg \
+		libxslt-dev \
+		gd-dev \
+		geoip-dev \
+		perl-dev \
+        git \ 
+	&& curl -fSL http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz -o nginx.tar.gz \
+	&& curl -fSL http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz.asc  -o nginx.tar.gz.asc \
+	&& export GNUPGHOME="$(mktemp -d)" \
+	&& gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$GPG_KEYS" \
+	&& gpg --batch --verify nginx.tar.gz.asc nginx.tar.gz \
+	&& rm -r "$GNUPGHOME" nginx.tar.gz.asc \
+	&& mkdir -p /usr/src \
+	&& tar -zxC /usr/src -f nginx.tar.gz \
+    && git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module.git /usr/src/ngx_http_substitutions_filter_module \
+    && git clone https://github.com/time-river/ngx_http_google_filter_module.git /usr/src/ngx_http_google_filter_module \
+	&& rm nginx.tar.gz \
+	&& cd /usr/src/nginx-$NGINX_VERSION \
+	&& ./configure $CONFIG \
+	&& make \
+#	&& mv objs/nginx objs/nginx-debug \
+#	&& mv objs/ngx_http_xslt_filter_module.so objs/ngx_http_xslt_filter_module-debug.so \
+#	&& mv objs/ngx_http_image_filter_module.so objs/ngx_http_image_filter_module-debug.so \
+#	&& mv objs/ngx_http_geoip_module.so objs/ngx_http_geoip_module-debug.so \
+#	&& mv objs/ngx_http_perl_module.so objs/ngx_http_perl_module-debug.so \
+	&& ./configure $CONFIG \
+	&& make \
+	&& make install \
+	&& rm -rf /etc/nginx/html/ \
+	&& mkdir /etc/nginx/conf.d/ \
+	&& mkdir -p /usr/share/nginx/html/ \
+#	&& install -m644 html/index.html /usr/share/nginx/html/ \
+#	&& install -m644 html/50x.html /usr/share/nginx/html/ \
+#	&& install -m755 objs/nginx-debug /usr/sbin/nginx-debug \
+#	&& install -m755 objs/ngx_http_xslt_filter_module-debug.so /usr/lib/nginx/modules/ngx_http_xslt_filter_module-debug.so \
+#	&& install -m755 objs/ngx_http_image_filter_module-debug.so /usr/lib/nginx/modules/ngx_http_image_filter_module-debug.so \
+#	&& install -m755 objs/ngx_http_geoip_module-debug.so /usr/lib/nginx/modules/ngx_http_geoip_module-debug.so \
+#	&& install -m755 objs/ngx_http_perl_module-debug.so /usr/lib/nginx/modules/ngx_http_perl_module-debug.so \
+	&& ln -s ../../usr/lib/nginx/modules /etc/nginx/modules \
+	&& strip /usr/sbin/nginx* \
+	&& strip /usr/lib/nginx/modules/*.so \
+	&& runDeps="$( \
+		scanelf --needed --nobanner /usr/sbin/nginx /usr/lib/nginx/modules/*.so \
+			| awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
+			| sort -u \
+			| xargs -r apk info --installed \
+			| sort -u \
+	)" \
+	&& apk add --virtual .nginx-rundeps $runDeps \
+	&& apk del .build-deps \
+	&& rm -rf /usr/src/nginx-$NGINX_VERSION /usr/src/ngx_http_substitutions_filter_module /usr/src/ngx_http_google_filter_module \
+	&& apk add --no-cache gettext \
+	\
+	# forward request and error logs to docker log collector
+	&& ln -sf /dev/stdout /var/log/nginx/access.log \
+	&& ln -sf /dev/stderr /var/log/nginx/error.log
 
-RUN set -x \
-    && buildDeps='ca-certificates libexpat1-dev libc6-dev dpkg-dev curl make gcc git g++' \
-    && apt-get update && apt-get install -y $buildDeps --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/* \
-    && mkdir -p /usr/src/nginx/nginx /usr/src/nginx/openssl /usr/src/nginx/pcre /usr/src/nginx/zlib \
-    && curl -SL "http://nginx.org/download/$NGINX_VERSION.tar.gz" -o nginx.tar.gz \
-    && curl -SL "https://openssl.org/source/$OPENSSL_VERSION.tar.gz" -o openssl.tar.gz \
-    && curl -SL "ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/$PCRE_VERSION.tar.bz2"  -o pcre.tar.bz2 \
-    && curl -SL "http://zlib.net/$ZLIB_VERSION.tar.xz" -o zlib.tar.xz \
-    && tar -xzC /usr/src/nginx/nginx --strip-components=1 -f nginx.tar.gz \
-    && tar -xzC /usr/src/nginx/openssl --strip-components=1 -f openssl.tar.gz \
-    && tar -xjC /usr/src/nginx/pcre --strip-components=1 -f pcre.tar.bz2 \
-    && tar -xJC /usr/src/nginx/zlib --strip-components=1 -f zlib.tar.xz \
-    && rm -rf nginx.tar.gz openssl.tar.gz pcre.tar.bz2 zlib.tar.xz \
-    && git clone https://github.com/arut/nginx-dav-ext-module /usr/src/nginx/nginx-dav-ext-module \
-    && git clone https://github.com/gnosek/nginx-upstream-fair /usr/src/nginx/nginx-upstream-fair \
-    && git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module /usr/src/nginx/ngx_http_substitutions_filter_module \
-    && git clone https://github.com/cuber/ngx_http_google_filter_module /usr/src/nginx/ngx_http_google_filter_module \
-    && cd /usr/src/nginx/nginx \
-    && ./configure \
-       --prefix=/var/www \
-       --sbin-path=/usr/sbin/nginx \
-       --conf-path=/etc/nginx/nginx.conf \
-       --error-log-path=/var/log/nginx/log/error.log \
-       --http-log-path=/var/log/nginx/access.log \
-       --pid-path=/var/run/nginx.pid \
-       --lock-path=/var/run/nginx.lock \
-       --http-client-body-temp-path=/var/cache/nginx/client_temp \
-       --http-proxy-temp-path=/var/cache/nginx/proxy_temp \
-       --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
-       --http-scgi-temp-path=/var/cache/nginx/scgi_temp \
-       --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
-       --user=nginx \
-       --group=nginx \
-       --with-cc-opt='-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2' \
-       --with-ld-opt='-Wl,-z,relro -Wl,--as-needed' \
-       --with-file-aio \
-       --with-http_addition_module \
-       --with-http_auth_request_module \
-       --with-http_dav_module \
-       --with-http_flv_module \
-       --with-http_mp4_module \
-       --with-http_gunzip_module \
-       --with-http_gzip_static_module \
-       --with-http_random_index_module \
-       --with-http_realip_module \
-       --with-http_secure_link_module \
-       --with-http_spdy_module \
-       --with-http_ssl_module \
-       --with-http_stub_status_module \
-       --with-http_sub_module \
-       --with-ipv6 \
-       --with-mail \
-       --with-mail_ssl_module  \
-       --with-openssl=../openssl \
-       --with-pcre=../pcre \
-       --with-zlib=../zlib \
-       --add-module=../nginx-dav-ext-module \
-       --add-module=../nginx-upstream-fair \
-       --add-module=../ngx_http_google_filter_module \
-       --add-module=../ngx_http_substitutions_filter_module \
-    && make -j$(nproc) \
-    && make install \
-    && cd / \
-    && rm -rf /usr/src/nginx /var/www/* /etc/nginx/* /var/log/nginx/* /var/cache/nginx/* \
-    && openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048 \
-    && apt-get purge -y --auto-remove $buildDeps
-
-RUN mkdir -p /etc/nginx/conf.d
-ADD nginx.conf /etc/nginx/
-COPY nginx /etc/init.d/
-WORKDIR /etc/init.d/
-RUN chown root:root nginx && chmod +x nginx
-
-VOLUME ["/var/www", "/etc/nginx/conf.d", "/var/log/nginx", "/var/cache/nginx"]
+#COPY nginx.conf /etc/nginx/nginx.conf
+#COPY nginx.vh.default.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80 443
 
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
