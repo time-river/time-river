@@ -1,6 +1,7 @@
 FROM alpine:3.3
 
 MAINTAINER NGINX Docker Maintainers "docker-maint@nginx.com"
+MAINTAINER time-river "feather12315@live.com"
 
 ENV NGINX_VERSION 1.10.1
 
@@ -70,6 +71,7 @@ RUN \
 		geoip-dev \
 		perl-dev \
         git \ 
+        openssl \
 	&& curl -fSL http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz -o nginx.tar.gz \
 	&& curl -fSL http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz.asc  -o nginx.tar.gz.asc \
 	&& export GNUPGHOME="$(mktemp -d)" \
@@ -83,25 +85,11 @@ RUN \
 	&& rm nginx.tar.gz \
 	&& cd /usr/src/nginx-$NGINX_VERSION \
 	&& ./configure $CONFIG \
-	&& make \
-#	&& mv objs/nginx objs/nginx-debug \
-#	&& mv objs/ngx_http_xslt_filter_module.so objs/ngx_http_xslt_filter_module-debug.so \
-#	&& mv objs/ngx_http_image_filter_module.so objs/ngx_http_image_filter_module-debug.so \
-#	&& mv objs/ngx_http_geoip_module.so objs/ngx_http_geoip_module-debug.so \
-#	&& mv objs/ngx_http_perl_module.so objs/ngx_http_perl_module-debug.so \
-	&& ./configure $CONFIG \
-	&& make \
+	&& make -j$(nproc) \
 	&& make install \
 	&& rm -rf /etc/nginx/html/ \
 	&& mkdir /etc/nginx/conf.d/ \
-	&& mkdir -p /usr/share/nginx/html/ \
-#	&& install -m644 html/index.html /usr/share/nginx/html/ \
-#	&& install -m644 html/50x.html /usr/share/nginx/html/ \
-#	&& install -m755 objs/nginx-debug /usr/sbin/nginx-debug \
-#	&& install -m755 objs/ngx_http_xslt_filter_module-debug.so /usr/lib/nginx/modules/ngx_http_xslt_filter_module-debug.so \
-#	&& install -m755 objs/ngx_http_image_filter_module-debug.so /usr/lib/nginx/modules/ngx_http_image_filter_module-debug.so \
-#	&& install -m755 objs/ngx_http_geoip_module-debug.so /usr/lib/nginx/modules/ngx_http_geoip_module-debug.so \
-#	&& install -m755 objs/ngx_http_perl_module-debug.so /usr/lib/nginx/modules/ngx_http_perl_module-debug.so \
+	&& mkdir -p /var/www \
 	&& ln -s ../../usr/lib/nginx/modules /etc/nginx/modules \
 	&& strip /usr/sbin/nginx* \
 	&& strip /usr/lib/nginx/modules/*.so \
@@ -113,6 +101,7 @@ RUN \
 			| sort -u \
 	)" \
 	&& apk add --virtual .nginx-rundeps $runDeps \
+    && openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048 \
 	&& apk del .build-deps \
 	&& rm -rf /usr/src/nginx-$NGINX_VERSION /usr/src/ngx_http_substitutions_filter_module /usr/src/ngx_http_google_filter_module \
 	&& apk add --no-cache gettext \
@@ -121,8 +110,10 @@ RUN \
 	&& ln -sf /dev/stdout /var/log/nginx/access.log \
 	&& ln -sf /dev/stderr /var/log/nginx/error.log
 
-#COPY nginx.conf /etc/nginx/nginx.conf
-#COPY nginx.vh.default.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/nginx.conf
+RUN rm -rf /etc/nginx/conf.d/*
+
+VOLUME ["/var/www", "/etc/nginx/conf.d", "/var/log/nginx", "/var/cache/nginx"]
 
 EXPOSE 80 443
 
