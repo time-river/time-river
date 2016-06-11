@@ -28,11 +28,18 @@ open(WORD_URL) {|f|
 }
 
 def craft_names(rand_words, snippet, pattern, caps=false)
-    names = snippet.scan(pattern).map do
+    puts snippet.scan(pattern).map
+    names = snippet.scan(pattern).map do 
+# scan(pattern) --> array
+# scan(pattern) {|match,...| block } --> str
         word = rand_words.pop()
         caps ? word.capitalize : word
+        # capitalize --> str
+        # "hello".capitalize #=> "Hello"
+        # "HELLO".capitalize #=> "Hello"
+        # "123ABC".capitalize #=> "123abc"
     end
-
+    puts names
     return names * 2
 end
 
