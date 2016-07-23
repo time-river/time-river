@@ -5,7 +5,8 @@ var RADIUS = 8;
 var MARGIN_TOP = 60;
 var MARGIN_LEFT = 30;
 
-const endTime = new Date(2016, 6, 24, 0, 0, 0);//6代表7月份
+const endTime = new Date((new Date()).getTime()+7200000) // 定时器
+//const endTime = new Date(2016, 6, 28, 0, 0, 0);//6代表7月份
 var curShowTimeSeconds = 0;
 
 var balls = [];
