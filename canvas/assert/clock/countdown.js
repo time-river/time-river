@@ -94,6 +94,7 @@ function updateBalls(){
     }
   }
 
+// 性能优化
  var cnt = 0;
   for(var i=0; i<balls.length; i++){
     if(balls[i].x + RADIUS > 0 && balls[i].x -RADIUS < WINDOW_WIDTH)//在幕布范围内
@@ -103,7 +104,7 @@ function updateBalls(){
   while(balls.length > cnt){
     balls.pop();
   }
-
+// END
 }
 
 function addBalls(x, y, num){
