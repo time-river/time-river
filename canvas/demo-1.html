@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset=utf-8">
+  <title>绘制直线/三角形/弧</title>
+</head>
+<body>
+  <canvas id="canvas" style="height:100%;width:100%;border:1px solid #aaa;display:block;"></canvas>
+<script>
+  window.onload = function() {
+    var canvas = document.getElementById("canvas");
+    canvas.width = 1024;
+    canvas.height = 768;
+    var context = canvas.getContext("2d");
+
+	  context.beginPath();
+	  context.moveTo(100, 100);
+	  context.lineTo(300, 300); // 线条
+	  context.lineTo(100, 300);
+	  context.lineTo(100, 100);
+	  context.closePath();
+
+	  context.lineWidth = 5; //线条宽度
+	  context.fillStyle = "rgb(2, 100, 30)"; //填充
+	  context.fill()
+
+	  context.strokeStyle = "#005588"; // CSS颜色样式
+	  context.stroke();
+  
+	  context.beginPath();
+	  context.moveTo(200, 100);
+	  context.lineTo(300, 200);
+	  context.closePath();
+
+	  context.strokeStyle = "black";
+	
+	  context.stroke();
+  }
+</script>
+</body>
+</html>	
