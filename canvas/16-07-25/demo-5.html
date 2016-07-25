@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>globalCompositeOperation</title>
+<style>
+#buttons {
+  width: 1200px;
+  margin: 10px auto;
+  clear: both;
+}
+#buttons a {
+  font-size: 18px;
+  display: block;
+  float: left;
+  margin-right: 14px;
+}
+</style>
+  </head>
+  <body>
+    <canvas id="canvas" style="border: 1px solid #aaa; display: block; margin: 50px auto;"></canvas>
+    <div id="buttons">
+      <a href="#">source-over</a>
+      <a href="#">source-atop</a>
+      <a href="#">source-in</a>
+      <a href="#">source-out</a>
+      <a href="#">destination-over</a>
+      <a href="#">destination-atop</a>
+      <a href="#">destination-in</a>
+      <a href="#">destination-out</a>
+      <a href="#">lighter</a>
+      <a href="#">copy</a>
+      <a href="#">xor</a>
+    </div>
+    <script>
+window.onload = function() {
+  draw("source-over");
+
+  var buttons = document.getElementById("buttons").getElementsByTagName("a");
+  for(var i=0; i<buttons.length; i++){
+    buttons[i].onclick = function(){
+      draw(this.text);
+      return false;
+    }
+  }
+}
+
+function draw(compositeStyle){
+  var canvas = document.getElementById("canvas");
+  canvas.width = 1200;
+  canvas.height = 800;
+
+  var context = canvas.getContext("2d");
+  context.clearRect(0, 0, canvas.width, canvas.height);
+
+  //draw title
+  context.font = "bold 40px Arial";
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+  context.fillStyle = "#058";
+  context.fillText("globalCompositeOperation = " + compositeStyle, canvas.width/2, 60);
+
+  //draw a rect
+  context.fillStyle = "blue";
+  context.fillRect(300, 150, 500, 500);
+
+  //draw a triangle
+  context.globalCompositeOperation = compositeStyle;
+  context.fillStyle = "red";
+  context.beginPath();
+  context.moveTo(700, 250);
+  context.lineTo(1000, 750);
+  context.lineTo(400, 750);
+  context.closePath();
+  context.fill();
+}
+    </script>
+  </body>
+</html>

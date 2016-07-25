@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Canvas绘图之旅 -- 运动的小球</title>
+<style>
+#canvas-wrapper {
+  width: 1200px;
+  height: 800px;
+  position: relative;
+  margin: 50px auto;
+}
+#canvas {
+  border: 1px solid #aaa;
+}
+#controller {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  background-color: rgba(0, 85, 116, 0.7);
+  padding: 5px 20px 25px 10px;
+  border-radius: 10px 10px;
+}
+#controller h1 {
+  color: white;
+  font-weight: bold;
+  font-family: "Microsoft Yahei", "Noto Sans";
+}
+#controller #canvas-btn {
+ display: inline-block;
+  background-color: #8b0;
+  color: white;
+  font-size: 14px;
+  padding: 5px 15px;
+  border-radius: 6px 6px;
+  text-decoration: none;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+#controller #canvas-btn:hover {
+  text-decoration: none;
+  background-color: #7a0;
+}
+#controller .color-btn {
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 6px 6px;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-right: 5px;
+  text-decoration: none;
+}
+#controller .color-btn:hover {
+  text-decoration: none;
+}
+#controller #white-color-btn {
+  background-color: white;
+}
+#controller #black-color-btn {
+  background-color: black;
+}
+</style>
+  </head>
+  <body>
+    <div id="canvas-wrapper">
+      <canvas id="canvas">
+      </canvas>
+      <div id="controller">
+        <h1>Canvas绘图之旅</h1>
+        <a href="#" id="canvas-btn">停止运动</a>
+        <a href="#" class="color-btn" id="white-color-btn">&nbsp;</a>
+        <a href="#" class="color-btn" id="black-color-btn">&nbsp;</a>
+      </div>
+    </div>
+    <script>
+var balls = [];
+
+var isMoving = true;
+var themeColor = "white";
+
+window.onload = function() {
+  var canvas = document.getElementById("canvas");
+
+  canvas.width = 1200;
+  canvas.height = 800;
+
+  var context = canvas.getContext("2d");
+  context.globalCompositeOperation = "lighter";
+
+  for(var i=0; i<100; i++){
+    var R = Math.floor(Math.random()*255);
+    var G = Math.floor(Math.random()*255);
+    var B = Math.floor(Math.random()*255);
+    var radius = Math.random() * 50 + 20;
+    aBall = {
+      color: "rgb(" + R + "," + G + "," + B +")",
+      radius: radius,
+      x: Math.random() * (canvas.width - 2*radius) + radius,
+      y: Math.random() * (canvas.height - 2*radius) + radius,
+      vx: (Math.random() * 5 + 5) * Math.pow(-1, Math.floor(Math.random() * 100)),
+      vy: (Math.random() * 5 + 5) * Math.pow(-1, Math.floor(Math.random() * 100))
+    };
+    balls[i] = aBall;
+  }
+
+  setInterval(
+      function(){
+        render(context);
+        if(isMoving){ // 希望小球运动的时候才update
+          update(canvas.width, canvas.height); //将小球位置移动，计算新坐标
+        }
+      },
+      50
+  );
+
+  document.getElementById("canvas-btn").onclick = function(event) {
+    if(isMoving){
+      isMoving = false;
+      this.text = "开始运动";
+    }
+    else {
+      isMoving = true;
+      this.text = "停止运动";
+    }
+    return false;
+  }
+  document.getElementById("white-color-btn").onclick = function(event){
+    themeColor = "white";
+    return false;
+  }
+  document.getElementById("black-color-btn").onclick = function(event){
+    themeColor = "black";
+    return false;
+  }
+}
+
+function render(cxt) {
+  var canvas = cxt.canvas;
+  cxt.clearRect(0, 0, canvas.width, canvas.height);
+
+  if(themeColor === "black"){ //默认白色
+    cxt.fillStyle = "black";
+    cxt.fillRect(0, 0, canvas.width, canvas.height);
+  }
+
+  for(var i=0; i<balls.length; i++){
+    cxt.fillStyle = balls[i].color;
+    cxt.beginPath();
+    cxt.arc(balls[i].x, balls[i].y, balls[i].radius, 0, Math.PI*2);
+    cxt.closePath();
+    cxt.fill();
+  }
+}
+
+function update(canvasWidth, canvasHeight){
+  for(var i=0; i<balls.length; i++){
+    balls[i].x += balls[i].vx;
+    balls[i].y += balls[i].vy;
+
+    if(balls[i].x-balls[i].radius <= 0)
+      balls[i].vx = -balls[i].vx;
+    if(balls[i].x+balls[i].radius >= canvasWidth)
+      balls[i].vx = -balls[i].vx;
+    if(balls[i].y-balls[i].radius <= 0)
+      balls[i].vy = -balls[i].vy;
+    if(balls[i].y+balls[i].radius >= canvasHeight)
+      balls[i].vy = -balls[i].vy;
+  }
+}
+  </script>
+  </body>
+</html>

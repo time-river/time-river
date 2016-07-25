@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>五角星</title>
+  </head>
+  <body>
+    <canvas id="canvas" style="height:100%;width:100%;border:1px solid #aaa;display:block;"></canvas>
+    <script>
+var canvas = document.getElementById("canvas");
+var context = canvas.getContext("2d");
+
+canvas.width = 1200;
+canvas.height = 800;
+
+var skyStyle = context.createRadialGradient(canvas.width/2, canvas.height, 0, canvas.width/2, canvas.height, canvas.height);
+skyStyle.addColorStop(0.0, "#035");
+skyStyle.addColorStop(1.0, "black");
+
+context.fillStyle = skyStyle;
+context.fillRect(0, 0, canvas.width, canvas.height);
+
+for(var i=0; i<50; i++){
+  var r = Math.random()*10 + 10;//random() 返回0-1之间的随机数
+  var x = Math.random() * canvas.width;
+  var y = Math.random() * canvas.height * 0.65;
+  var rot = Math.random() * 360; 
+  drawStar(context, x, y, r, r/2.0, rot);
+}
+
+fillMoon(context, 2, 900, 200, 100, 30);
+drawLand(context);
+
+function drawLand(cxt){
+  cxt.save();
+
+  cxt.beginPath();
+  cxt.moveTo(0, 600);
+  cxt.bezierCurveTo(540, 400, 660, 800, 1200, 600);
+  cxt.lineTo(1200, 800);
+  cxt.lineTo(0, 800);
+  cxt.closePath();
+
+  var landStyle = cxt.createLinearGradient(0, 800, 0, 0);
+  landStyle.addColorStop(0.0, "#030");
+  landStyle.addColorStop(1.0, "#580");
+  cxt.fillStyle = landStyle;
+
+  cxt.fill()
+  cxt.restore();
+}
+
+function drawStar(cxt, x, y, R, rot){
+  cxt.save();
+  
+  cxt.translate(x, y);
+  cxt.rotate(rot/180*Math.PI);
+
+  starPath(cxt);
+
+  cxt.fillStyle = "#fb3";
+  cxt.scale(R, R);
+
+  cxt.fill();
+
+  cxt.restore();
+}
+
+function starPath(cxt){
+  cxt.beginPath();
+  for(var i=0; i<5; i++){
+    cxt.lineTo(Math.cos((18+i*72)/180*Math.PI)*20, Math.sin((18+i*72)/180*Math.PI)*20);
+    cxt.lineTo(Math.cos((54+i*72)/180*Math.PI)*10, Math.sin((54+i*72)/180*Math.PI)*10);
+  }
+  cxt.closePath();
+}
+
+function fillMoon(cxt, d, x, y, R, rot, fillColor){
+  cxt.save();
+  cxt.translate(x, y);
+  cxt.rotate(rot*Math.PI/180);
+  cxt.scale(R, R);
+  pathMoon(cxt, d);
+  cxt.fillStyle = fillColor || "#fb5";
+  cxt.fill();
+  cxt.restore();
+}
+
+function pathMoon(cxt, d){
+  cxt.beginPath();
+  cxt.arc(0, 0, 1, 0.5*Math.PI, 1.5*Math.PI, true);
+  cxt.moveTo(0, -1);
+  cxt.arcTo(d, 0, 0, 1, dis(0, -1, d, 0)/d);
+  cxt.closePath();
+}
+
+function dis(x1, y1, x2, y2){
+  return Math.sqrt((x1-x2)**2+(y1-y2)**2);
+}
+    </script>
+  </body>
+</html>

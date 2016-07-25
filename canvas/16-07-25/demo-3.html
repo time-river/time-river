@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>弯月</title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script>
+window.onload = function() {
+  var canvas = document.getElementById("canvas");
+
+  canvas.width = 800;
+  canvas.height = 800;
+
+  var context = canvas.getContext("2d");
+
+  /* //fillMoon函数功能：注释代码段
+  context.arc(400, 400, 300, 0.5*Math.PI, 1.5*Math.PI, true);
+  context.moveTo(400, 100);
+  context.arcTo(1200, 400, 400, 700, (400-100)*dis(400, 100, 1200, 400)/(1200-400));
+  context.stroke();
+  */
+  fillMoon(context, 2, 400, 400, 300, 0);
+}
+
+function fillMoon(cxt, d, x, y, R, rot, fillColor){
+  cxt.save();
+  cxt.translate(x, y);
+  cxt.rotate(rot*Math.PI/180);
+  cxt.scale(R, R);
+  pathMoon(cxt, d);
+  cxt.fillStyle = fillColor || "#fb5";
+  cxt.fill();
+  cxt.restore();
+}
+
+function pathMoon(cxt, d){
+  cxt.beginPath();
+  cxt.arc(0, 0, 1, 0.5*Math.PI, 1.5*Math.PI, true);
+  cxt.moveTo(0, -1);
+  cxt.arcTo(d, 0, 0, 1, dis(0, -1, d, 0)/d);
+  cxt.closePath();
+}
+
+function dis(x1, y1, x2, y2){
+  return Math.sqrt((x1-x2)**2+(y1-y2)**2);
+}
+    </script>
+  </body>
+</html>
