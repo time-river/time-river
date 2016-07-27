@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title></title>
+  </head>
+  <body>
+    <canvas id="canvas" style="display:block;margin:0 auto;border:1px solid #aaa;" ></canvas>
+    <canvas id="off-canvas" style="display:none"></canvas>
+    <script>
+var canvas = document.getElementById("canvas");
+var context = canvas.getContext("2d");
+
+var offCanvas = document.getElementById("off-canvas");
+var offContext = offCanvas.getContext("2d");
+
+var isMouseDown = false; //鼠标左键是否点击
+var scale;
+var image = new Image();
+
+window.onload = function() {
+  canvas.width = 1152;
+  canvas.height = 768;
+
+  image.src = "demo-3.jpg";
+  image.onload = function() {
+    offCanvas.width = image.width;
+    offCanvas.height = image.height;
+    scale = offCanvas.width / canvas.width;
+
+    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+    offContext.drawImage(image, 0, 0);
+  }
+}
+
+//鼠标事件
+canvas.onmousedown = function (e) { //点击
+  e.preventDefault();
+  //e.clientX 到浏览器左边界距离
+  //e.clientY 上边界
+  //console.log(e.clientX, e.clientY);
+
+  var point = windowToCanvas(e.clientX, e.clientY);
+  //console.log(point.x, point.y);
+  isMouseDown = true;
+  drawCanvasWithMagnifier( true, point );
+} 
+canvas.onmousemove = function(e){
+  e.preventDefault();
+  if ( isMouseDown == true ){
+    var point = windowToCanvas(e.clientX, e.clientY);
+    //console.log(point.x, point.y);
+    drawCanvasWithMagnifier( true, point );
+  } 
+}
+canvas.onmouseup = function(){
+  isMouseDown = false;
+  drawCanvasWithMagnifier( false );
+}
+canvas.onmouseout = function(e){
+  e.preventDefault();
+  isShowMagnifier = false;
+  drawCanvasWithMagnifier( false );
+}
+//转换为Canvas坐标系
+function windowToCanvas(x, y){
+  var bbox = canvas.getBoundingClientRect();
+  return {x: x-bbox.left, y:y-bbox.top};
+}
+
+function drawCanvasWithMagnifier( isShowMagnifier, point ){
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  context.drawImage( image, 0, 0, canvas.width, canvas.height );
+  if ( isShowMagnifier === true ){
+    drawMagnifier( point );
+  }
+}
+function drawMagnifier( point ){
+  var imageLG_cx = point.x * scale;
+  var imageLG_cy = point.y * scale;
+
+  var mr = 200; // 放大镜半径
+
+  var sx = imageLG_cx - mr;
+  var sy = imageLG_cy - mr;
+
+  var dx = point.x - mr;
+  var dy = point.y - mr;
+
+  //context.drawImage( offCanvas, sx, sy, 2*mr, 2*mr, dx, dy, 2*mr, 2*mr );
+  context.save();
+  context.lineWidth = 10.0;
+  context.strokeStyle = "#069";
+  
+  context.beginPath();
+  context.arc(point.x, point.y, mr, 0, Math.PI*2);
+  context.stroke()
+  context.clip(); //圆型剪辑区域
+  context.drawImage(offCanvas, sx, sy, 2*mr, 2*mr, dx, dy, 2*mr, 2*mr);
+  context.restore();
+}
+    </script>
+  </body>
+</html>
