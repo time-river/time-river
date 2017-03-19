@@ -6,7 +6,7 @@ START
         I want to use it to record my memories.  
 
 
-####现实是残酷的,回忆是美好的！
+#### 现实是残酷的,回忆是美好的！
 
 ****
 		ww      w      ww eeeeeeeeee ll             ccccccc     oooooooo         mm     mm     eeeeeeeeee
@@ -31,9 +31,9 @@ START
 
 END
 ===
-####庭有枇杷树，吾妻死之年所手植也，今已亭亭如盖矣。 
+#### 庭有枇杷树，吾妻死之年所手植也，今已亭亭如盖矣。 
 
 ****
-#####　　　　　　　　　　　　Recorder: time-river
-#####　　　　　　　　　 E-mail: feather12315@live.com
+##### 　　　　　　　　　　　　Recorder: time-river  
+##### 　　　　　　　　　 E-mail: feather12315@live.com  
 ****
